@@ -1,0 +1,32 @@
+/* Laoder */
+.loader {
+    border: 12px solid #e4e4e4;
+    border-right-color: #1aca3a;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    animation: Load 1s linear infinite;
+    &-container {
+        width: 100%;
+        position: fixed;
+        background-color: #7e7e7e9e;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 120;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: FadeInOut .5s ease-in-out both;
+    }
+}
+
+@keyframes Load {
+    0% {
+        transform: rotate(0deg);
+    }
+            
+    100% {
+        transform: rotate(360deg);
+    }
+}

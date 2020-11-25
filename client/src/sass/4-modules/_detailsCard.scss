@@ -1,0 +1,223 @@
+// Details Card Module
+.details-modal {
+    z-index: 1;
+    margin-left: 8px;
+    padding-bottom: 30px;
+    opacity: 1;
+    width: 100%;
+    position: sticky;
+    top: 96px;
+    height: 65vh;
+    transition: .3s cubic-bezier(.25,.8,.5,1);
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    display: block;
+    &::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+    &-container {
+        width: 100%;
+        animation: scaleWidth 1s;
+        animation-fill-mode: forwards;
+        z-index: 100;
+    }
+    // Card
+    .card {
+        padding: 0;
+        margin: 0;
+        padding-bottom: 16px;
+        box-shadow: 0 3px 24px 0 rgba(0,0,0,.12);
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        // Container
+        &-container {
+            padding-bottom: 30px;
+            position: relative;
+            opacity: 1;
+            max-width: inherit;
+        }
+        // Header
+        &-header {
+            top: 0;
+            box-shadow: 0 1px 0 0 #e0e0e0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+        &-close {
+            padding-left: 24px;
+            padding-right: 16px;
+            i {
+                width: 48px;
+                cursor: pointer;
+                height: 48px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 18px;
+                color: rgba(0,0,0,0.54);
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+        &-title {
+            color: rgba(0,0,0,.87);
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 500;
+        }
+        &-buttons {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 8px;
+            flex: 2;
+        }
+        &-btn {
+            min-width: 80px;
+            height: 36px;
+            font-size: 14px;
+            line-height: 16px;
+            border-radius: 4px;
+            padding: 0 15px;
+            margin: 0;
+            font-weight: 500;
+            transition: .3s cubic-bezier(.25,.8,.5,1),color 1ms;
+            outline: 0;
+            text-transform: uppercase;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            position: relative;
+            &::before {
+                border-radius: inherit;
+                color: inherit;
+                content: "";
+                height: 100%;
+                left: 0;
+                opacity: .12;
+                position: absolute;
+                top: 0;
+                transition: .3s cubic-bezier(.25,.8,.5,1);
+                width: 100%;
+            }
+            &:hover:before {
+                background-color: currentColor;
+            }
+            &-danger {
+                color: #f25a5a!important;
+            }
+            &-success {
+                color: #2db84c!important;
+            }
+        }
+        // Body
+        &-body {
+            padding: 8px 0 0 0;
+            margin-top: 8px;
+        }
+        &-row {
+            display: flex;
+        }
+        &-icon {
+            font-weight: 400;
+            padding-right: 15px;
+            max-width: 16.666666666666664%;
+            width: 16.666666666666664%;
+            min-width: 80px;
+            display: flex;
+            justify-content: flex-end;
+            i {
+                font-size: 24px;
+                line-height: 32px;
+            }
+        }
+        &-info {
+            h3 {
+                font-size: 24px;
+                line-height: 32px;
+                color: rgba(0,0,0,.87);
+                font-weight: 400;
+            }
+            &-date {
+                font-size: 12px;
+                line-height: 24px;
+                color: rgba(0,0,0,.54);
+                position: relative;
+                padding-bottom: 8px;
+            }
+            &-note {
+                font-size: 14px;
+                line-height: 20px;
+                color: rgba(0,0,0,.87);
+                margin-top: 8px;
+            }
+        }
+        &-amount {
+            font-size: 34px;
+            line-height: 48px;
+            padding: 0 16px 14px 0;
+            margin-left: 16.666666666666664%;
+        }
+    }
+    // Module Buttons For Mobiles
+    &-buttons {
+        border-top: 1px solid #e0e0e0;
+        margin-top: 19px;
+        padding-top: 20px;
+        display: none;
+    }
+}
+
+@keyframes scaleWidth {
+    0% {width: 0;opacity: 0;}
+    75% {opacity: 1;}
+    100% {width: 100%;opacity: 1;}
+}
+
+// Extra small devices (phones, 600px and down)
+@media only screen and (max-width: 600px) {
+    .details-modal {
+        margin-left: 0;
+        padding-bottom: 0;
+        width: 80%;
+        position: relative;
+        top: unset;
+        height: unset;
+        overflow: unset;
+        animation: unset;
+        background-color: #fff;
+        color: rgba(0, 0, 0, 0.87);
+        border-radius: 4px;
+        transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+        margin-top: 5vh;
+        &-container {
+            height: 100vh;
+            position: fixed;
+            background-color: #212121ab;
+            z-index: 23;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: FadeInOut .5s ease-in-out;
+        }
+        .card {
+            padding-bottom: 0;
+            &-container {
+                padding-bottom: 0;
+            }
+            &-buttons {
+                display: none;
+            }
+        }
+        &-buttons {
+            display: flex;
+        }
+    }
+}

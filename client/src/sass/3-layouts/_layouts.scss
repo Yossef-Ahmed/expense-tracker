@@ -1,0 +1,210 @@
+// Helpers
+.inline-ul {
+    display: flex;
+    align-items: center;
+}
+// The App Container
+.App {
+    display: grid;
+    grid-template-rows: 70px auto 68px;
+    grid-template-areas:
+        "h h h h h h h h h h h h"
+        "c c c c c c c c c c c c"
+        "f f f f f f f f f f f f";
+    height: 100vh;
+    grid-auto-rows: 0;
+    overflow: auto;
+}
+// Container
+.container {
+    width: 1170px;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+// Main Navbar
+.nav {
+    grid-area: h;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    &-brand a {
+        color: rgba(0,0,0,.87);
+    }
+    &-item {
+        margin-left: 25px;
+    }
+    &-link {
+        display: inline-block;
+        color: #909090;
+        cursor: pointer;
+        &:hover, &.active {
+            color: #000;
+        }
+        .nav-icon {
+            margin-right: 7px;
+        }
+    }
+    // Mobile Menu
+    &-mobile-items {
+        display: none;
+    }
+    &-links-close {
+        display: none;
+    }
+}
+// Content
+.content {
+    grid-area: c;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    padding: 0 30px;
+}
+// Footer
+.footer {
+    grid-area: f;
+    display: flex;
+    padding: 0 30px;
+    align-items: center;
+    justify-content: space-between;
+    h3 {
+        color: #8a8a8a;
+        font-size: 14px;
+    }
+    &-link {
+        margin-left: 10px;
+        font-size: 18px;
+        a {
+            color: #000;
+            opacity: 0.4;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+// Card Page
+.card-page {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+// Extra small devices (phones, 600px and down)
+@media only screen and (max-width: 600px) {
+    // Grid
+    .App {
+        grid-template-rows: 60px auto auto 45px;
+        grid-template-areas:
+        "h h h h h h h h h h h h"
+        "a a a a a a a a a a a a"
+        "c c c c c c c c c c c c"
+        "f f f f f f f f f f f f";
+    }
+    // Navbar
+    .nav {
+        padding: 15px 20px;
+        &-brand a {
+            font-size: 18px;
+        }
+        &-links-mobile-container {
+            height: 100vh;
+            position: fixed;
+            background-color: rgba(0,0,0, 0.9);
+            z-index: 5;
+            top: 0;
+            right: 0;
+            justify-content: center;
+            transition: .5s;
+            width: 0;
+            display: flex;
+            overflow: hidden;
+            &.active {
+                width: 100%;
+            }
+        }
+        &-links {
+            flex-direction: column;
+            position: relative;
+            top: 25%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+        &-item {
+            width: 100%;
+            margin: 0;
+            &-btn {display: none;}
+        }
+        &-link {
+            padding: 8px;
+            font-size: 22px;
+            color: #818181;
+            display: block;
+            transition: .3s;
+            &:hover, &.active {
+                color: #f1f1f1;
+            }
+            .nav-icon {display: none;}
+        }
+        &-links-close {
+            font-size: 26px;
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            display: block;
+        }
+        &-links-mobile-container.active &-links-close {
+            right: 35px;
+        }
+        &-mobile-items {
+            display: flex;
+        }
+        &-mobile-item {
+            margin-left: 10px;
+        }
+        .hamburger-menu {
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            transition: .3s;
+            opacity: .5;
+            cursor: pointer;
+            display: flex;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+    // Content
+    .content {
+        margin-top: 30px;
+        align-items: center;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}

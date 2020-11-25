@@ -1,0 +1,207 @@
+// Date Modal Module
+.modal-date {
+    width: 290px;
+    margin-top: 115px;
+    position: fixed;
+    top: 0;
+    &-container {
+        width: 290px;
+        margin: 0 auto;
+    }
+    .modal-header {
+        background-color: rgb(45, 184, 76);
+        border-color: rgb(45, 184, 76);
+        color: #fff;
+        padding: 16px;
+    }
+    .date {
+        // Modal Header
+        &-title {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            line-height: 1;
+            width: 100%;
+            div {
+                cursor: pointer;
+                opacity: .6;
+                transition: .3s cubic-bezier(.25,.8,.5,1);
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+        &-year {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        &-full {
+            font-size: 34px;
+            font-weight: 500;
+        }
+        // Slider
+        &-slider {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 16px;
+            &-btn {
+                transition: .3s cubic-bezier(.25,.8,.5,1),color 1ms;
+                font-size: 14px;
+                font-weight: 500;
+                height: 36px;
+                width: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                color: rgba(0,0,0,.87);
+                cursor: pointer;
+                position: relative;
+                &::before {
+                    border-radius: inherit;
+                    color: inherit;
+                    content: "";
+                    height: 100%;
+                    left: 0;
+                    opacity: .12;
+                    position: absolute;
+                    top: 0;
+                    transition: .3s cubic-bezier(.25,.8,.5,1);
+                    width: 100%;
+                }
+                &:hover::before {
+                    background-color: currentColor;
+                }
+            }
+            &-current {
+                flex: 1;
+                text-align: center;
+                cursor: pointer;
+                transition: .3s cubic-bezier(.25,.8,.5,1);
+                font-size: 14px;
+                &:hover {
+                    color: rgb(45, 184, 76);
+                }
+            }
+        }
+        // Date Picker
+        &-picker {
+            height: 242px;
+            padding: 0 12px;
+            position: relative;
+            // Date Picker With Years View
+            &-years {
+                height: initial;
+                padding: 0;
+            }
+            table {
+                table-layout: fixed;
+                top: 0;
+                transition: .3s cubic-bezier(.25,.8,.5,1);
+                width: 100%;
+            }
+            // Date Picker Buttons
+            &-btn {
+                font-size: 12px;
+                margin: 0;
+                padding: 0;
+                border-radius: 2px;
+                color: rgba(0,0,0,.87);
+                background: 0;
+                position: relative;
+                font-weight: 500;
+                height: 36px;
+                outline: 0;
+                border: 0;
+                transition: .3s cubic-bezier(.25,.8,.5,1),color 1ms;
+                cursor: pointer;
+                &::before {
+                    border-radius: inherit;
+                    color: inherit;
+                    content: "";
+                    height: 100%;
+                    left: 0;
+                    opacity: .12;
+                    position: absolute;
+                    top: 0;
+                    transition: .3s cubic-bezier(.25,.8,.5,1);
+                    width: 100%;
+                }
+                &:hover::before, &.active-btn::before {
+                    background: currentColor;
+                }
+                &.active-btn {
+                    background-color: rgb(45, 184, 76);
+                    border-color: rgb(45, 184, 76);
+                    color: #fff;
+                }
+            }
+            // Days Table
+            .days-table {
+                th {
+                    color: rgba(0,0,0,.38);
+                    font-weight: 600;
+                    padding: 8px 0;
+                    font-size: 12px;
+                    text-align: center;
+                    cursor: default;
+                }
+                td {
+                    width: 45px;
+                    text-align: center;
+                }
+                button {
+                    height: 32px;
+                    width: 32px;
+                    border-radius: 50%;
+                }
+            }
+            // Months Table
+            .months-table {
+                td {
+                    height: 56px;
+                    text-align: center;
+                    vertical-align: middle;
+                    width: 33.333333%;
+                }
+                button {
+                    max-width: 160px;
+                    min-width: 40px;
+                    width: 100%;
+                }
+            }
+            // Years List
+            .years-list {
+                font-size: 16px;
+                font-weight: 400;
+                height: 286px;
+                overflow: auto;
+                text-align: center;
+                li {
+                    cursor: pointer;
+                    padding: 8px 0;
+                    &:hover {
+                        background: rgba(0,0,0,.12);
+                    }
+                    &.active-btn {
+                        font-size: 26px;
+                        font-weight: bold;
+                        padding: 10px 0;
+                        background-color: #87faa0 !important;
+                        border-color: #87faa0 !important;
+                        color: rgb(45, 184, 76);
+                    }
+                }
+            }
+        }
+    }
+    // Buttons
+    .modal-buttons {
+        padding-right: 8px;
+        .btn:first-child {
+            margin-right: 0;
+        }
+    }
+}
