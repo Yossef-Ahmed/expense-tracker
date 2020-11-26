@@ -42,7 +42,7 @@ export default function(state = initialState, action) {
         case CREATE_TRANSACTION:
             const tranDate = new Date(parseInt(action.payload.date));
             let start = new Date(new Date(state.start).setDate(state.start.getDate() - 1));
-            let end = new Date(new Date(state.end).setDate(state.end.getDate() + 1));
+            let end = new Date(state.end);
             if ((state.end && tranDate > start && tranDate < end) || (!state.end && tranDate > start)) {
                 return {
                     ...state,
@@ -54,7 +54,7 @@ export default function(state = initialState, action) {
         case UPDATE_TRANSACTION:
             const tranDate2 = new Date(parseInt(action.payload.date));
             let start2 = new Date(new Date(state.start).setDate(state.start.getDate() - 1));
-            let end2 = new Date(new Date(state.end).setDate(state.end.getDate() + 1));
+            let end2 = new Date(state.end);
             if ((state.end && tranDate2 > start2 && tranDate2 < end2) || (!state.end && tranDate2 > start2)) {
                 return {
                     ...state,

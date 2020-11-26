@@ -20,7 +20,7 @@ export class CategoriesDetails extends Component {
         }
     }
     closeOnClick = e => {
-        if (window.matchMedia('screen and (max-width: 600px)').matches) {
+        if (window.matchMedia('screen and (max-width: 800px)').matches) {
             e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add('fadeOut');
             setTimeout(() => this.props.closeDetailsCard(), 200);
         } else {
@@ -32,7 +32,7 @@ export class CategoriesDetails extends Component {
     }
     handleClickOutside = e => {
         if (e.target.classList.contains('details-modal-container')) {
-            if (window.matchMedia('screen and (max-width: 600px)').matches) {
+            if (window.matchMedia('screen and (max-width: 800px)').matches) {
                 e.target.classList.add('fadeOut');
                 setTimeout(() => this.props.closeDetailsCard(), 200);
             } 
@@ -41,7 +41,7 @@ export class CategoriesDetails extends Component {
     render() {
         const category = this.props.item;
         // Check if it's a mobile screen
-        const isMobile = window.matchMedia('screen and (max-width: 600px)').matches ? true : false;
+        const isMobile = window.matchMedia('screen and (max-width: 800px)').matches ? true : false;
         if (category) {
             const categoryType = category.type === '-' ? 'expense' : 'income';
             return (

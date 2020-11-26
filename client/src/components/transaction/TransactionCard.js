@@ -15,9 +15,9 @@ export class TransactionCard extends Component {
             prevTab: null,
             currTab: null,
             nextTab: null,
-            thisMonth: <span className="thisMonth" onClick={this.onClick} data-date={`${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), 1)).toLocaleDateString()}-${thisMonthDate.toLocaleDateString()}`}>This Month</span>,
-            lastMonth: <span className="lastMonth" onClick={this.onClick} data-date={`${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth() - 1, 1)).toLocaleDateString()}-${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), 0)).toLocaleDateString()}`}>Last Month</span>,
-            future: <span className="future" onClick={this.onClick} data-date={`${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), thisMonthDate.getDate() + 1)).toLocaleDateString()}-${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), thisMonthDate.getDate() + 1)).toLocaleDateString()}`}>Future</span>
+            thisMonth: <span className="thisMonth" onClick={this.onClick} data-date={`${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), 1)).toISOString()}/${thisMonthDate.toISOString()}`}>This Month</span>,
+            lastMonth: <span className="lastMonth" onClick={this.onClick} data-date={`${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth() - 1, 1)).toISOString()}/${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), 0)).toISOString()}`}>Last Month</span>,
+            future: <span className="future" onClick={this.onClick} data-date={`${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), thisMonthDate.getDate() + 1)).toISOString()}/${new Date(new Date().setFullYear(thisMonthDate.getFullYear(), thisMonthDate.getMonth(), thisMonthDate.getDate() + 1)).toISOString()}`}>Future</span>
         }
     }
     static getDerivedStateFromProps(props, state) {
@@ -54,16 +54,15 @@ export class TransactionCard extends Component {
         const futureTab = document.querySelector('.transactions-page .card-tab.nextTab');
         const currTabEle = document.querySelector('.transactions-page .card-tab.currTab');
         // Set The Values
-        const end = e.target.dataset.date.split('-')[1];
+        const end = e.target.dataset.date.split('/')[1];
         const currMonthDate = new Date(end);
-        let prevTab = this.state.prevTab;
-        let currTab = this.state.currTab;
-        let nextTab = this.state.nextTab;
+        let {prevTab, currTab, nextTab} = this.state;
         // Check on which tab we clicked
         if (e.target.parentElement.classList.contains('prevTab')) {
             // Change the values
-            const prevDate = `${new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth() - 1, 1)).toLocaleDateString()}-${new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth(), 0)).toLocaleDateString()}`;
-            prevTab = <span onClick={this.onClick} data-date={prevDate}>{prevDate}</span>;
+            const prevStart = new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth() - 1, 1));
+            const prevEnd = new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth(), 0));
+            prevTab = <span onClick={this.onClick} data-date={`${prevStart.toISOString()}/${prevEnd.toISOString()}`}>{`${prevStart.toLocaleDateString()}-${prevEnd.toLocaleDateString()}`}</span>;
             currTab = this.state.prevTab;
             nextTab = this.state.currTab;
             if (futureTab.classList.contains('active')) {
@@ -75,16 +74,15 @@ export class TransactionCard extends Component {
             cardTabBar.style.left = `${tabsContainer.children[1].offsetLeft + tabsContainer.children[1].offsetWidth}px`;
         } else if (e.target.parentElement.classList.contains('nextTab')) {
             // Change the Values
-            const nextDate = `${new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth() + 1, 1)).toLocaleDateString()}-${new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth() + 2, 0)).toLocaleDateString()}`;
-            nextTab = <span onClick={this.onClick} data-date={nextDate}>{nextDate}</span>;
+            const nextStart = new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth() + 1, 1));
+            const nextEnd = new Date(new Date().setFullYear(currMonthDate.getFullYear(), currMonthDate.getMonth() + 2, 0));
+            nextTab = <span onClick={this.onClick} data-date={`${nextStart.toISOString()}/${nextEnd.toISOString()}`}>{`${nextStart.toLocaleDateString()}-${nextEnd.toLocaleDateString()}`}</span>;
             currTab = this.state.nextTab;
             prevTab = this.state.currTab;
             // Check if the next date is Last Month
-            const nextDates = nextDate.split('-');
-            const nextDateEnd = new Date(nextDates[1]);
-            const lastMonthDates = this.state.lastMonth.props['data-date'].split('-')
+            const lastMonthDates = this.state.lastMonth.props['data-date'].split('/');
             const lastMonthDate = new Date(lastMonthDates[1]);
-            if (nextDateEnd.getMonth() === lastMonthDate.getMonth()) {
+            if (nextEnd.getMonth() === lastMonthDate.getMonth()) {
                 nextTab = this.state.lastMonth;
             }
             // Check if we click on the Future or This Month
