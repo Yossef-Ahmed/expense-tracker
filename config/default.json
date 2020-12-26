@@ -1,4 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://joe:sm108108@nodetut.ga2c4.mongodb.net/expense-tracker?retryWrites=true&w=majority",
-    "jwtSecret": "sl_JwtSecret346542325050"
-}
