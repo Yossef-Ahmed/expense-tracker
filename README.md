@@ -89,3 +89,9 @@ npm run client / yarn run client
 npm install
 npm run server / yarn run server
 ```
+
+## Meta
+
+Made By Youssef Ahmed – uosefd@gmail.com
+
+Distributed under the GUN GPLv3 license. See [LICENSE](https://github.com/Yossef-Ahmed/expense-tracker/blob/main/LICENSE) for more information.
