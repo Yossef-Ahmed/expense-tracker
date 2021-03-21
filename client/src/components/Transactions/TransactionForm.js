@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {createTransaction, updateTransaction} from '../../actions/transactionAction';
-import {addComma, clearNumber} from '../../functions/index';
-import CategoriesSelect from '../category/CategoriesSelect';
-import SelectDate from '../others/SelectDate';
 import {CSSTransition} from 'react-transition-group';
+
+import {createTransaction, updateTransaction} from '../../actions/transactionAction';
+import {addComma, clearNumber} from '../../utils/index';
+
+import CategoriesSelect from '../Categories/CategoriesSelect';
+import SelectDate from '../Others/SelectDate';
 
 export class TransactionForm extends Component {
     state = {

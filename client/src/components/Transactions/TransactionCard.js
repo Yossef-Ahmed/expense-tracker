@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getTransactions} from '../../actions/transactionAction';
-import {addComma} from '../../functions/index';
+import {addComma} from '../../utils/index';
 import TransactionsList from './TransactionsList';
 
 const thisMonthDate = new Date();

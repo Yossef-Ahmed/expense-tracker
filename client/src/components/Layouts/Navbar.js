@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import {logout} from '../../actions/authActions';
 
 // Components
-import TransactionForm from '../transaction/TransactionForm';
-import CategoriesForm from '../category/CategoriesForm';
+import TransactionForm from '../Transactions/TransactionForm';
+import CategoriesForm from '../Categories/CategoriesForm';
 
 export class Navbar extends Component {
     static propTypes = {

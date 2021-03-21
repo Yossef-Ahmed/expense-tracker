@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import CategoriesCard from './CategoriesCard';
-import CategoriesDetails from './CategoriesDetails';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {unloadCategories} from '../../actions/categoryActions';
+import TransactionCard from '../components/Transactions/TransactionCard';
+import TransactionDetails from '../components/Transactions/TransactionDetails';
+import {unloadTransactions} from '../actions/transactionAction';
 
-export class Categories extends Component {
+export class Transactions extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool.isRequired,
-        unloadCategories: PropTypes.func.isRequired
+        unloadTransactions: PropTypes.func.isRequired
     }
     componentDidUpdate(prevProps) {
         if(!this.props.isAuthenticated) {
@@ -21,13 +21,13 @@ export class Categories extends Component {
         }
     }
     componentWillUnmount() {
-        this.props.unloadCategories();
+        this.props.unloadTransactions();
     }
     render() {
         return (
-            <div className="card-page categories-page">
-                <CategoriesCard />
-                <CategoriesDetails />
+            <div className="card-page transactions-page">
+                <TransactionCard />
+                <TransactionDetails />
             </div>
         )
     }
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, {unloadCategories})(Categories);
+export default connect(mapStateToProps, {unloadTransactions})(Transactions);

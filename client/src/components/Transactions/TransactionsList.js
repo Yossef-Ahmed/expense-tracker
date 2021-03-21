@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {addComma, getDayName, getMonthName} from '../../functions/index';
+import {addComma, getDayName, getMonthName} from '../../utils/index';
 import {getTransaction} from '../../actions/transactionAction';
 
 export class TransactionsList extends Component {

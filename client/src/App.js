@@ -1,31 +1,27 @@
-// Modules
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import Store from './Store';
 import {loadUser} from './actions/authActions';
 
-// Components
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
-import Transactions from './components/transaction/Transactions';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import Loader from './components/others/Loader';
-import Alert from './components/others/Alert';
-import PageNotFound from './components/others/PageNotFound';
-import ConfirmModal from './components/others/ConfirmModal';
-import Categories from './components/category/Categories';
+import Home from './pages/Home';
+import Transactions from './pages/Transactions';
+import Categories from './pages/Categories';
+import PageNotFound from './pages/PageNotFound';
 
-// Styles
-import './css/all.min.css';
-// import './App.scss';
+import Navbar from './components/Layouts/Navbar';
+import Footer from './components/Layouts/Footer';
+import Loader from './components/Others/Loader';
+import Alert from './components/Others/Alert';
+import ConfirmModal from './components/Others/ConfirmModal';
+
 import './sass/App.scss';
 
 class App extends Component {
   componentDidMount() {
     Store.dispatch(loadUser());
   }
+
   render() {
     return (
       <Provider store={Store}>
@@ -39,8 +35,6 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={Transactions} />
                 <Route path="/categories" component={Categories} />
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
                 <Route path="*" component={PageNotFound} />
               </Switch>
             </div>

@@ -1,0 +1,48 @@
+// Button Module
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    cursor: pointer;
+    &-success {
+        color: #fff !important;
+        background-color: #1aa333;
+        border-color: #1aa333;
+        &:hover {
+            color: #fff !important;
+            background-color: #1e7e34;
+            border-color: #1c7430;
+        }
+    }
+    &-block {
+        width: 100%;
+    }
+    &-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+        &:hover {
+            color: #fff;
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    }
+}
+
+// Extra small devices (phones, 600px and down)
+@media only screen and (max-width: 600px) {
+    .btn {
+        padding: .375rem .75rem;
+        font-size: 14px;
+        line-height: unset;
+    }
+}

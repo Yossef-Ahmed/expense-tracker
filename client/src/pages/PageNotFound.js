@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {loaded} from '../../actions/loaderActions';
+import {loaded} from '../actions/loaderActions';
 
 export class PageNotFound extends Component {
     static propTypes = {
         loaded: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool.isRequired
     }
+
     componentDidMount() {
         this.props.loaded();
     }
+
     componentDidUpdate() {
         if (this.props.isAuthenticated) {
             this.props.loaded();
         }
     }
+    
     render() {
         return (
             <div className="not-found">

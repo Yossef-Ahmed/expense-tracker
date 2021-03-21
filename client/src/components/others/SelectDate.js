@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {chunkArrayInGroups, findMonthBegging, formatDate} from '../../functions/index';
+import {chunkArrayInGroups, findMonthBegging, formatDate} from '../../utils/index';
 import {CSSTransition} from 'react-transition-group';
 import PropTypes from 'prop-types';
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TransactionForm from './TransactionForm';
 import {closeDetailsCard, deleteTransaction} from '../../actions/transactionAction';
 import {openConfirm} from '../../actions/confirmActions';
-import {addComma, getDayName, formatDate} from '../../functions/index';
+import {addComma, getDayName, formatDate} from '../../utils/index';
 
 export class TransactionDetails extends Component {
     static propTypes = {
