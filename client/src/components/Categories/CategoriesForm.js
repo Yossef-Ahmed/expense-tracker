@@ -119,7 +119,10 @@ export class CategoriesForm extends Component {
                         <button className="card-btn card-btn-success" onClick={this.toggleEditForm}>Edit</button>
                     )
                 ) : (
-                    <button className="nav-link btn btn-success" onClick={this.toggle}>Add Category</button>
+                    <li onClick={this.toggle}>
+                        <i className="fas fa-plus"></i>
+                        Add New Category
+                    </li>
                 ) }
                 <CSSTransition in={modal} timeout={400} unmountOnExit classNames="modal-fade">
                     <div className="modal-container" onClick={this.handleClickOutside}>

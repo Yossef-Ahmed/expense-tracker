@@ -1,0 +1,18 @@
+.navbar__links {
+    display: flex;
+
+    .nav-link {
+        display: inline-block;
+        color: #909090;
+        cursor: pointer;
+        margin-left: 25px;
+
+        &:hover, &.active {
+            color: #000;
+        }
+
+        .nav-icon {
+            margin-right: 7px;
+        }
+    }
+}

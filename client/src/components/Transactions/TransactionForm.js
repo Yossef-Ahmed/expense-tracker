@@ -162,7 +162,10 @@ export class TransactionForm extends Component {
                         <button className="card-btn card-btn-success" onClick={this.toggleEditForm}>Edit</button>
                     )
                 ) : (
-                    <button className="nav-link btn btn-success" onClick={this.toggle}>Add Transaction</button>
+                    <li onClick={this.toggle}>
+                        <i className="fas fa-plus"></i>
+                        Add New Transaction
+                    </li>
                 ) }
                 <CSSTransition in={modal} timeout={400} unmountOnExit classNames="modal-fade">
                         <div className="modal-container" onClick={this.handleClickOutside} data-modal="TransactionsForm">

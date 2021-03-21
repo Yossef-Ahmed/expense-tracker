@@ -6,9 +6,9 @@
 // The App Container
 .App {
     display: grid;
-    grid-template-rows: 70px auto auto 68px;
+    grid-template-rows: 75px auto auto 68px;
     grid-template-areas:
-        "h h h h h h h h h h h h"
+        "n n n n n n n n n n n n"
         "a a a a a a a a a a a a"
         "c c c c c c c c c c c c"
         "f f f f f f f f f f f f";

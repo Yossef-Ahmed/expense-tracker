@@ -23,6 +23,7 @@ class App extends Component {
   }
 
   render() {
+    const isAuthenticated = Store.getState().auth.isAuthenticated;
     return (
       <Provider store={Store}>
         <Router>
@@ -33,7 +34,7 @@ class App extends Component {
             <Navbar />
             <div className="content">
               <Switch>
-                <Route exact path="/" component={Transactions} />
+                <Route exact path="/" component={isAuthenticated ? Transactions : Home} />
                 <Route path="/categories" component={Categories} />
                 <Route path="*" component={PageNotFound} />
               </Switch>

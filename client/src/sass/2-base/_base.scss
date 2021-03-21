@@ -10,6 +10,10 @@ ul, ol {
 a {
     text-decoration: none;
 }
+button {
+    border: none;
+    outline: none;
+}
 body {
     background-color: $whiteColor;
     font-family: roboto,sans-serif;

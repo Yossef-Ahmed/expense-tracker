@@ -1,0 +1,16 @@
+.navbar {
+    grid-area: n;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 18px 74px;
+    border-bottom: 1px solid $borderColor;
+    width: 100%;
+
+    &__items {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+}
