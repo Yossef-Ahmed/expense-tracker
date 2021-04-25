@@ -1,5 +1,5 @@
 .brand-name {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
     a {
         color: $mainColor;
@@ -10,7 +10,7 @@
     }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 768px) {
     .brand-name {
         font-size: 20px;
     }

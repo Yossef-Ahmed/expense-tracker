@@ -98,7 +98,7 @@
 }
 
 // All small devices (phones, tablets, 800px and down)
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
     // Grid
     .App {
         grid-template-rows: 60px auto auto 45px;

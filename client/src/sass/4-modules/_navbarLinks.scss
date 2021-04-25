@@ -15,13 +15,9 @@
             margin-right: 7px;
         }
     }
-
-    .nav-mobile-btn {
-        display: none;
-    }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 768px) {
     .navbar__links {
         order: 3;
         flex-direction: column;
@@ -45,14 +41,6 @@
                 font-size: 40px;
                 color: #5183C0;
             }
-        }
-        
-        .nav-mobile-btn {
-            display: flex;
-        }
-        
-        .nav-btn {
-            display: none;
         }
     }
 }
