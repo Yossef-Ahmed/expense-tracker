@@ -3,19 +3,6 @@
     display: flex;
     align-items: center;
 }
-// The App Container
-.App {
-    display: grid;
-    grid-template-rows: 75px auto auto 68px;
-    grid-template-areas:
-        "n n n n n n n n n n n n"
-        "a a a a a a a a a a a a"
-        "c c c c c c c c c c c c"
-        "f f f f f f f f f f f f";
-    height: 100vh;
-    grid-auto-rows: 0;
-    overflow: auto;
-}
 // Container
 .container {
     width: 1170px;

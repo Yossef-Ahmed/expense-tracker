@@ -1,0 +1,18 @@
+.App {
+    display: grid;
+    grid-template-rows: 75px auto auto 68px;
+    grid-template-areas:
+        "n n n n n n n n n n n n"
+        "a a a a a a a a a a a a"
+        "c c c c c c c c c c c c"
+        "f f f f f f f f f f f f";
+    height: 100vh;
+    grid-auto-rows: 0;
+    overflow: auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .App {
+        grid-template-rows: 60px auto auto 45px;
+    }
+}
