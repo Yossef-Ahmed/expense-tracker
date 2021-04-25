@@ -16,22 +16,17 @@ export class Navbar extends Component {
         logout: PropTypes.func.isRequired
     }
 
-    // componentWillMount() {
-    //     this.unlisten = this.props.history.listen((location, action) => {
-    //         document.querySelector('.nav-links-mobile-container').classList.remove('active');
-    //     });
-    // }
+    openMobileMenu = e => {
+        e.target.nextElementSibling.classList.toggle('active');
+    }
 
-    // componentWillUnmount() {
-    //     this.unlisten();
-    // }
-
-    // openMenu = e => {
-    //     document.querySelector('.nav-links-mobile-container').classList.toggle('active');
-    // }
+    closeMobileMenu = e => {
+        e.target.parentElement.classList.toggle('active');
+    }
 
     toggleUserLinksList = e => {
         document.querySelector('.navbar .user-links__list').classList.toggle("is-opend")
+        document.querySelector('.navbar .user-links').classList.toggle("is-opend")
     }
 
     render() {
@@ -55,7 +50,11 @@ export class Navbar extends Component {
         const guestLinks = (
             <Fragment>
                 <li>
-                    <button className="btn btn--dark-green">Login</button>
+                    <button className="btn btn--dark-green nav-btn">Login</button>
+                </li>
+                <li className="nav-link nav-mobile-btn">
+                    <i className="fas fa-sign-in-alt nav-icon"></i>
+                    <span>Login</span>
                 </li>
             </Fragment>
         );
@@ -66,28 +65,40 @@ export class Navbar extends Component {
                     <Link to="/">Expense Tracker</Link>
                 </h2>
 
-                <div className="navbar__items">
-                    <ul className="navbar__links">
-                        {isAuthenticated ? authLinks : guestLinks}
-                    </ul>
+                <div className="navbar-menu">
+                    <i onClick={this.openMobileMenu} className="fas fa-bars navbar-menu__mobile-icon"></i>
 
-                    {isAuthenticated ? (
-                        <div className="user-links">
-                            <img className="user-links__icon" src={UserIcon} onClick={this.toggleUserLinksList} alt="User Icon"/>
-                            <ul className="user-links__list">
-                                <AddTransaction />
-                                <AddCategory />
-                                <li>
-                                <i className="fas fa-user-edit"></i>
-                                    Edit Profile
-                                </li>
-                                <li onClick={this.props.logout}>
-                                    <i className="fas fa-sign-out-alt"></i>
-                                    Logout
-                                </li>
+                    <div className="navbar-menu__content">
+                        <i onClick={this.closeMobileMenu} className="navbar-menu__close-btn fas fa-times"></i>
+
+                        <div className="navbar-menu__links-container">
+                            <ul className="navbar__links">
+                                {isAuthenticated ? authLinks : guestLinks}
                             </ul>
+
+                            {isAuthenticated ? (
+                                <div className="user-links">
+                                    <div className="user-links__user" onClick={this.toggleUserLinksList}>
+                                        <img className="user-links__icon" src={UserIcon} alt="User Icon"/>
+                                        <span className="user-links__username">Youssef Ahmed</span>
+                                    </div>
+                                    
+                                    <ul className="user-links__list">
+                                        <AddTransaction />
+                                        <AddCategory />
+                                        <li>
+                                            <i className="fas fa-user-edit"></i>
+                                            Edit Profile
+                                        </li>
+                                        <li onClick={this.props.logout}>
+                                            <i className="fas fa-sign-out-alt"></i>
+                                            Logout
+                                        </li>
+                                    </ul>
+                                </div>
+                            ) : null}
                         </div>
-                    ) : null}
+                    </div>
                 </div>
             </nav>
         )

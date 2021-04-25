@@ -7,10 +7,10 @@
     padding: 18px 74px;
     border-bottom: 1px solid $borderColor;
     width: 100%;
+}
 
-    &__items {
-        display: flex;
-        align-items: center;
-        position: relative;
+@media only screen and (max-width: 425px) {
+    .navbar {
+        padding: 18px 20px;
     }
 }

@@ -15,4 +15,44 @@
             margin-right: 7px;
         }
     }
+
+    .nav-mobile-btn {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .navbar__links {
+        order: 3;
+        flex-direction: column;
+        padding: 0 45px;
+
+        .nav-link {
+            margin-left: unset;
+            margin-bottom: 40px;
+            padding: 8px 8px 8px 0;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            color: #787878;
+
+            &:hover, &.active {
+                color: inherit;
+            }
+
+            .nav-icon {
+                margin-right: 30px;
+                font-size: 40px;
+                color: #5183C0;
+            }
+        }
+        
+        .nav-mobile-btn {
+            display: flex;
+        }
+        
+        .nav-btn {
+            display: none;
+        }
+    }
 }
