@@ -50,7 +50,7 @@ export class Navbar extends Component {
         const guestLinks = (
             <Fragment>
                 <li>
-                    <button className="btn btn--dark-green nav-btn">Login</button>
+                    <button className="btn btn--green nav-btn">Login</button>
                 </li>
                 <li className="nav-link nav-mobile-btn">
                     <i className="fas fa-sign-in-alt nav-icon"></i>

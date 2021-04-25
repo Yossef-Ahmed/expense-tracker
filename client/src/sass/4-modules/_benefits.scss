@@ -1,0 +1,20 @@
+.benefits {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 40px;
+}
+
+@media only screen and (max-width: 768px) {
+    .benefits {
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .benefits {
+        padding: 30px 45px;
+        flex-direction: column;
+    }
+}

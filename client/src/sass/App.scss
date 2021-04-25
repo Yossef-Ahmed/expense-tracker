@@ -7,6 +7,7 @@
 @import "3-layouts/layouts";
 @import "3-layouts/AppContainer";
 @import "3-layouts/navbar";
+@import "3-layouts/content";
 @import "3-layouts/footer";
 
 @import "4-modules/btn";
@@ -15,6 +16,9 @@
 @import "4-modules/navbarMenu";
 @import "4-modules/navbarLinks";
 @import "4-modules/navbarUserLinks";
+@import "4-modules/header";
+@import "4-modules/benefits";
+@import "4-modules/benefit";
 
 
 @import "4-modules/alert";
@@ -26,6 +30,7 @@
 @import "4-modules/dateModal";
 @import "4-modules/notFound";
 
+@import "5-pages/home";
 // @import "5-pages/categories";
 // @import "5-pages/transactions";
 
