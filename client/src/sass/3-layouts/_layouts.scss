@@ -1,16 +1,8 @@
-// Helpers
 .inline-ul {
     display: flex;
     align-items: center;
 }
-// Container
-.container {
-    width: 1170px;
-    display: flex;
-    align-items: center;
-    margin: auto;
-}
-// Content
+
 .content {
     grid-area: c;
     display: flex;
@@ -19,7 +11,7 @@
     margin-bottom: 25px;
     padding: 0 30px;
 }
-// Footer
+
 .footer {
     grid-area: f;
     display: flex;
@@ -42,16 +34,14 @@
         }
     }
 }
-// Card Page
+
 .card-page {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-// All small devices (phones, tablets, 800px and down)
 @media only screen and (max-width: 768px) {
-    // Content
     .content {
         margin-top: 30px;
     }
