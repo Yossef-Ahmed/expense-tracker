@@ -11,7 +11,7 @@ export class Header extends Component {
                     <p className="header__description">The simplest way to record your daily transactions. And discover where your money goes.</p>
                     <button className="btn btn--green">Sign Up</button>
                 </div>
-                <img src={HeaderImage} alt="Header Image" className="header__img"/>
+                <img src={HeaderImage} alt="Header" className="header__img"/>
             </header>
         )
     }

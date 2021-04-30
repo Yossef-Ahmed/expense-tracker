@@ -3,29 +3,6 @@
     align-items: center;
 }
 
-.footer {
-    grid-area: f;
-    display: flex;
-    padding: 0 30px;
-    align-items: center;
-    justify-content: space-between;
-    h3 {
-        color: #8a8a8a;
-        font-size: 14px;
-    }
-    &-link {
-        margin-left: 10px;
-        font-size: 18px;
-        a {
-            color: #000;
-            opacity: 0.4;
-            &:hover {
-                opacity: 1;
-            }
-        }
-    }
-}
-
 .card-page {
     display: flex;
     justify-content: center;

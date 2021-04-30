@@ -7,8 +7,8 @@
     &__title {
         font-size: 40px;
         margin-bottom: 30px;
-        line-height: 55px;
         margin-top: 40px;
+        line-height: 55px;
     }
 
     &__description {
@@ -23,10 +23,6 @@
 @media only screen and (max-width: 1100px) {
     .header {
         align-items: flex-end;
-
-        &__description {
-            
-        }
 
         &__img {
             width: 400px;

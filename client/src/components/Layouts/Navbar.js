@@ -66,10 +66,10 @@ export class Navbar extends Component {
                 </h2>
 
                 <div className="navbar-menu">
-                    <i onClick={this.openMobileMenu} className="fas fa-bars navbar-menu__mobile-icon"></i>
+                    <i className="navbar-menu__mobile-icon fas fa-bars" onClick={this.openMobileMenu}></i>
 
                     <div className="navbar-menu__content">
-                        <i onClick={this.closeMobileMenu} className="navbar-menu__close-btn fas fa-times"></i>
+                        <i className="navbar-menu__close-btn fas fa-times" onClick={this.closeMobileMenu}></i>
 
                         <div className="navbar-menu__links-container">
                             <ul className="navbar__links">

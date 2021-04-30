@@ -1,0 +1,18 @@
+.footer__copyright {
+    font-size: 18px;
+    line-height: 30px;
+    width: 230px;
+    color: $mainColor;
+}
+
+@media only screen and (min-width: 571px) and (max-width: 680px) {
+    .footer__copyright {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    .footer__copyright {
+        margin-bottom: 25px;
+    }
+}

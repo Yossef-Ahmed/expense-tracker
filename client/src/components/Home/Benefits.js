@@ -14,12 +14,12 @@ export class Benefits extends Component {
                 </div>
 
                 <div className="benefit">
-                    <img src={Benefit2} alt="Cash Register" className="benefit__icon"></img>
+                    <img src={Benefit2} alt="Reports" className="benefit__icon"></img>
                     <h3 className="benefit__text">Discover Your Spending Habits With Reports</h3>
                 </div>
 
                 <div className="benefit">
-                    <img src={Benefit3} alt="Cash Register" className="benefit__icon"></img>
+                    <img src={Benefit3} alt="Wallet" className="benefit__icon"></img>
                     <h3 className="benefit__text">Easily Record Your Daily Transactions</h3>
                 </div>
             </div>
