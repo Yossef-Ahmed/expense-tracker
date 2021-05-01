@@ -18,12 +18,31 @@ import ConfirmModal from './components/Others/ConfirmModal';
 import './sass/App.scss';
 
 class App extends Component {
+  state = {
+    isAuthenticated: false
+  }
+
   componentDidMount() {
     Store.dispatch(loadUser());
+    this.subscribeToStateChnage();
+  }
+
+  subscribeToStateChnage = () => {
+    Store.subscribe(() => {
+      const prev = Store.getState().auth.isAuthenticated;
+      const current = this.state.isAuthenticated;
+      if(this.isPrevNotEqualCurrent(prev, current)) {
+        this.setState({isAuthenticated: !current});
+      }
+    })
+  };
+
+  isPrevNotEqualCurrent = (prev, current) => {
+    return prev !== current;
   }
 
   render() {
-    const isAuthenticated = Store.getState().auth.isAuthenticated;
+    const isAuthenticated = this.state.isAuthenticated;
     return (
       <Provider store={Store}>
         <Router>

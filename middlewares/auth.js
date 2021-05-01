@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const jwtSecret = process.env.jwtSecret || require('config').get('jwtSecret');
 
-function auth(req, res, next) {
+module.exports = (req, res, next) => {
     // Get the token
     const token = req.header('x-auth-token');
     // Check: if there's no token, return an error
@@ -16,5 +16,3 @@ function auth(req, res, next) {
         res.status(400).json({msg: 'Token is not valid'});
     }
 }
-
-module.exports = auth;

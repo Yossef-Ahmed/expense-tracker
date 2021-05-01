@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {returnAlert} from './alertActions';
+import {setTokenAndConfig, setConfig} from './requestConfig';
 import {loading, loaded} from './loaderActions';
 import {getCategories} from './categoryActions';
 import {
@@ -12,22 +12,14 @@ import {
     LOGOUT_SUCCESS
 } from './types';
 
-// Register User
-export const register = ({name, email, password}) => dispatch => {
-    // Laoding 
+export const register = ({name, email, password}) => dispatch => { 
     dispatch(loading());
-    // Set the Headers
-    const config = {
-        headers: {
-            "Content-type": "application/json"
-        }
-    }
-    // Set the Body
+    
+    const config = setConfig();
     const body = JSON.stringify({name, email, password});
-    // Send the Request
+    
     axios.post('/api/auth/register', body, config)
         .then(res => {
-            dispatch(returnAlert('Register Successfully', 'Success!', 'success'));
             dispatch(getCategories(res.data.categories));
             dispatch({
                 type: REGISTER_SUCCESS,
@@ -36,30 +28,22 @@ export const register = ({name, email, password}) => dispatch => {
                     user: res.data.user
                 }
             });
+            dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch({type: REGISTER_FAIL});
             dispatch(loaded());
         });
 }
 
-// Login
 export const login = ({email, password}) => dispatch => {
-    // Laoding 
     dispatch(loading());
-    // Set the Headers
-    const config = {
-        headers: {
-            "Content-type": "application/json"
-        }
-    }
-    // Set the Body
+    
+    const config = setConfig();
     const body = JSON.stringify({email, password});
-    // Send the Request
+    
     axios.post('/api/auth/login', body, config)
         .then(res => {
-            dispatch(returnAlert('Login Successfully', 'Success!', 'success'));
             dispatch(getCategories(res.data.categories));
             dispatch({
                 type: LOGIN_SUCCESS,
@@ -68,25 +52,26 @@ export const login = ({email, password}) => dispatch => {
                     user: res.data.user
                 }
             });
+            dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch({type: LOGIN_FAIL});
             dispatch(loaded());
         });
 }
 
-// Logout
 export const logout = () => dispatch => {
-    dispatch(returnAlert('Logout Successfully', 'Success!', 'success'));
-    dispatch({type: LOGOUT_SUCCESS});
+    dispatch(loading());
+    setTimeout(() => {
+        dispatch({type: LOGOUT_SUCCESS});
+        dispatch(loaded());
+    }, 500);
 }
 
-// Check token & load user
 export const loadUser = () => (dispatch, getState) => {
-    // User Loadding
     dispatch(loading());
-    axios.get('/api/auth/user', tokenConfig(getState))
+
+    axios.get('/api/auth/load-user', setTokenAndConfig(getState))
         .then(res => {
             dispatch(getCategories(res.data.categories));
             dispatch({
@@ -96,26 +81,10 @@ export const loadUser = () => (dispatch, getState) => {
                     user: res.data.user
                 }
             });
+            dispatch(loaded());
         })
         .catch(err => {
             dispatch({type: AUTH_ERROR});
             dispatch(loaded());
         });
 };
-
-// Setup config/headers and token
-export const tokenConfig = getState => {
-    // Get token from localStorage
-    const token = getState().auth.token;
-    // Headers
-    const config = {
-        headers: {
-            "Content-type": "application/json"
-        }
-    }
-    // If token, add to headers
-    if (token) {
-        config.headers['x-auth-token'] = token;
-    }
-    return config;
-}

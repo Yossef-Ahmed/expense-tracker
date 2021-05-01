@@ -2,7 +2,7 @@ import axios from 'axios';
 import {returnAlert} from './alertActions';
 import {loading, loaded} from './loaderActions';
 import {setConfirm} from './confirmActions';
-import {tokenConfig} from './authActions';
+import {setTokenAndConfig} from './requestConfig';
 import {
     GET_CATEGORIES,
     GET_CATEGORY,
@@ -40,7 +40,7 @@ export const createCategory = item => (dispatch, getState) => {
     // Set the Body
     const body = JSON.stringify(item);
     // Send the request
-    axios.post(`/api/user/categories/`, body, tokenConfig(getState))
+    axios.post(`/api/user/categories/`, body, setTokenAndConfig(getState))
         .then(res => {
             dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
@@ -61,7 +61,7 @@ export const updateCategory = item => (dispatch, getState) => {
     // Set the Body
     const body = JSON.stringify(item);
     // Send the request
-    axios.patch(`/api/user/categories/${item._id}`, body, tokenConfig(getState))
+    axios.patch(`/api/user/categories/${item._id}`, body, setTokenAndConfig(getState))
         .then(res => {
             dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
@@ -80,7 +80,7 @@ export const updateCategory = item => (dispatch, getState) => {
 export const deleteCategory = catId => (dispatch, getState) => {
     dispatch(loading());
     // Send the request
-    axios.delete(`/api/user/categories/${catId}`, tokenConfig(getState))
+    axios.delete(`/api/user/categories/${catId}`, setTokenAndConfig(getState))
         .then(res => {
             dispatch(setConfirm());
             dispatch(returnAlert(res.data.msg, 'Success!', 'success'));

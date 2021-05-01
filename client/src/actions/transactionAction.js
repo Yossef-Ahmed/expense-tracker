@@ -2,7 +2,7 @@ import axios from 'axios';
 import {returnAlert} from './alertActions';
 import {loading, loaded} from './loaderActions';
 import {setConfirm} from './confirmActions';
-import {tokenConfig} from './authActions';
+import {setTokenAndConfig} from './requestConfig';
 import {
     GET_TRANSACTIONS,
     GET_TRANSACTION,
@@ -33,7 +33,7 @@ export const getTransactions = date => (dispatch, getState) => {
     // Set the Body
     const body = JSON.stringify({start, end});
     // Send the request
-    axios.post('/api/transactions', body, tokenConfig(getState))
+    axios.post('/api/transactions', body, setTokenAndConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_TRANSACTIONS,
@@ -66,7 +66,7 @@ export const createTransaction = item => (dispatch, getState) => {
     // Set the Body
     const body = JSON.stringify(item);
     // Send the request
-    axios.post(`/api/transactions/create`, body, tokenConfig(getState))
+    axios.post(`/api/transactions/create`, body, setTokenAndConfig(getState))
         .then(res => {
             dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
@@ -87,7 +87,7 @@ export const updateTransaction = item => (dispatch, getState) => {
     // Set the Body
     const body = JSON.stringify(item);
     // Send the request
-    axios.patch(`/api/transactions/${item._id}`, body, tokenConfig(getState))
+    axios.patch(`/api/transactions/${item._id}`, body, setTokenAndConfig(getState))
         .then(res => {
             dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
@@ -106,7 +106,7 @@ export const updateTransaction = item => (dispatch, getState) => {
 export const deleteTransaction = tranId => (dispatch, getState) => {
     dispatch(loading());
     // Send the request
-    axios.delete(`/api/transactions/${tranId}`, tokenConfig(getState))
+    axios.delete(`/api/transactions/${tranId}`, setTokenAndConfig(getState))
         .then(res => {
             dispatch(setConfirm());
             dispatch(returnAlert(res.data.msg, 'Success!', 'success'));

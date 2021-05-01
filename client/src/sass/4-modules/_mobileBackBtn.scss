@@ -1,0 +1,15 @@
+.mobile-back-btn {
+    width: 60px;
+    transition: .3s ease-in-out;
+    display: none;
+
+    &:hover {
+        opacity: .7;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .mobile-back-btn {
+        display: block;
+    }
+}

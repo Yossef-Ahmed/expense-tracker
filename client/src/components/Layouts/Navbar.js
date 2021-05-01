@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import {logout} from '../../actions/authActions';
 
+import LoginModal from '../Home/LoginModal';
 import AddTransaction from '../Transactions/TransactionForm';
 import AddCategory from '../Categories/CategoriesForm';
 
@@ -47,17 +48,7 @@ export class Navbar extends Component {
                 </li>
             </Fragment>
         );
-        const guestLinks = (
-            <Fragment>
-                <li>
-                    <button className="btn btn--green nav-btn">Login</button>
-                </li>
-                <li className="nav-link nav-mobile-btn">
-                    <i className="fas fa-sign-in-alt nav-icon"></i>
-                    <span>Login</span>
-                </li>
-            </Fragment>
-        );
+        const guestLinks = <LoginModal />;
 
         return (
             <nav className="navbar">

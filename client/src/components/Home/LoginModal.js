@@ -1,83 +1,100 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
+
 import {login} from '../../actions/authActions';
+
+import Modal from '../Reuseable/Modal'
+import GoogleBtn from './GoogleBtn'
 
 export class Login extends Component {
     state = {
-        loading: false,
+        modal: false,
         msg: null,
         email: '',
         password: ''
     }
     static propTypes = {
-        isAuthenticated: PropTypes.bool,
         login: PropTypes.func.isRequired
     }
-    componentDidUpdate(prevProps) {
-        const {isAuthenticated} = this.props;
-        if (isAuthenticated) {
-            this.props.history.push('/');
-        }
-    }
-    inputFocus = e => {
-        if (e.target.className === 'form-label') {
+
+    focusOnInput = e => {
+        if (e.target.className === 'input-field__label') {
             e.target.nextElementSibling.focus();
+        } else if (e.target.className === 'input-field') {
+            e.target.lastElementChild.focus();
         }
     }
+
     onChange = e => {
         this.setState({[e.target.name]: e.target.value});
     }
+    
     onSubmit = e => {
         e.preventDefault();
-        // Get the values
+        
         const {email, password} = this.state;
-        // User Object
-        const user = {
-            email,
-            password
-        }
-        // Attempt ro register
-        this.props.login(user);
+        this.props.login({email, password});
     }
+
+    toggleModal = () => {
+        this.setState({modal: !this.state.modal});
+    }
+
     render() {
         return (
-            <form className="form" onSubmit={this.onSubmit}>
-                <div className="form-header">
-                    <h2 className="form-title">Login</h2>
-                </div>
-                <div className="form-body">
-                    <div className="form-group" onClick={this.inputFocus}>
-                        <p className="form-label">Email</p>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            className="form-control"
-                            placeholder="Email"
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="form-group" onClick={this.inputFocus}>
-                        <p className="form-label">Password</p>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            className="form-control"
-                            placeholder="Password"
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-block btn-block btn-primary">Login</button>
-                </div>
-            </form>
+            <Fragment>
+                <Fragment>
+                    <li>
+                        <button className="btn btn--green nav-btn" onClick={this.toggleModal}>Login</button>
+                    </li>
+                    <li className="nav-link nav-mobile-btn" onClick={this.toggleModal}>
+                        <i className="fas fa-sign-in-alt nav-icon"></i>
+                        <span>Login</span>
+                    </li>
+                </Fragment>
+
+                <Modal isOpen={this.state.modal} toggleModal={this.toggleModal}>
+                    <form className="form" onSubmit={this.onSubmit}>
+                        <h2 className="form__title">Sign In</h2>
+                        
+                        <GoogleBtn method="Sign In" />
+
+                        <div className="form__span">Or</div>
+
+                        <div className="input-field" onClick={this.focusOnInput}>
+                            <p className="input-field__label">Email</p>
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                className="input-field__input"
+                                placeholder="example@gmail.com"
+                                onChange={this.onChange}
+                            />
+                        </div>
+
+                        <div className="input-field" onClick={this.focusOnInput}>
+                            <p className="input-field__label">Password</p>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                className="input-field__input"
+                                placeholder="********"
+                                onChange={this.onChange}
+                            />
+                        </div>
+
+                        <button type="submit" className="btn btn--block btn--green">Sign In</button>
+
+                        <span className="form__reset-password">Forgot Your Password?</span>
+                    </form>
+                </Modal>
+            </Fragment>
         )
     }
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
-
-export default connect(mapStateToProps, {login})(Login);
+export default withRouter(connect(null, {login})(Login));
