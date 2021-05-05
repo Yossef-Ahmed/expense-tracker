@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../../../models/User');
-const jwtSecret = process.env.jwtSecret || require('config').get('jwtSecret');
+const createJWT = require('../../../utils/createJWT');
+const sendUserData = require('../../../utils/sendUserData');
 
 module.exports = (req, res) => {
     const {email, password} = req.body;
@@ -17,24 +17,14 @@ module.exports = (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(!isMatch) return res.status(400).json({msg: 'Please enter the right email and password'});
-                    
-                    jwt.sign(
-                        {id: user.id},
-                        jwtSecret,
-                        {expiresIn: 3600},
-                        (err, token) => {
-                            if(err) throw err;
-                            res.json({
-                                token,
-                                user: {
-                                    id: user.id,
-                                    name: user.name,
-                                    email: user.email
-                                },
-                                categories: user.categories
-                            });
-                        }
-                    );
+                    if(user.active) {
+                        createJWT(user.id, (err, token) => {
+                            if (err) throw err;
+                            sendUserData(user, token, res);
+                        });
+                    } else {
+                        res.json({msg: "Please verify your email first", userActive: false, email: user.email})
+                    }
                 });
         });
 };

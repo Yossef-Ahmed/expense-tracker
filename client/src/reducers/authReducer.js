@@ -1,18 +1,20 @@
 import {
     USER_LOADED,
-    REGISTER_SUCCESS,
-    REGISTER_FAIL,
     AUTH_ERROR,
     LOGIN_SUCCESS,
-    LOGIN_FAIL,
     LOGOUT_SUCCESS,
-
+    VERIFY_EMAIL,
+    REQUEST_VEREIFICATION_CODE,
+    TOGGLE_EMAIL_VERIFICATION_MODAL
 } from '../actions/types';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
-    user: null
+    user: null,
+    isEmailVerificationOpen: false,
+    sendVerificationCodeNow: false,
+    emailToVerify: null
 }
 
 export default function(state = initialState, action) {
@@ -24,16 +26,20 @@ export default function(state = initialState, action) {
                 isAuthenticated: true
             }
         case LOGIN_SUCCESS:
-        case REGISTER_SUCCESS:
+        case VERIFY_EMAIL:
             localStorage.setItem('token', action.payload.token);
             return {
                 ...state,
                 ...action.payload,
                 isAuthenticated: true,
             }
-        case REGISTER_FAIL:
+        case TOGGLE_EMAIL_VERIFICATION_MODAL:
+            return {
+                ...state,
+                ...action.payload,
+                isEmailVerificationOpen: !state.isEmailVerificationOpen
+            }
         case AUTH_ERROR:
-        case LOGIN_FAIL:
         case LOGOUT_SUCCESS:
             localStorage.removeItem('token');
             return {

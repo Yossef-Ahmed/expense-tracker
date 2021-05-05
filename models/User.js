@@ -20,6 +20,18 @@ const UserSchema = new Schema({
         type: String,
         default: Date.now
     },
+    active: {
+        type: Boolean,
+        default: false
+    },
+    verificationCode: {
+        type: Number,
+        default: null
+    },
+    sentVerificationCodeAt: {
+        type: Date,
+        default: null
+    },
     categories: {
         default: Category.find().then(categories => categories),
         type: Array

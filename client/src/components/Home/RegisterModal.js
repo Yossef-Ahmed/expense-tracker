@@ -40,9 +40,10 @@ export class RegisterModal extends Component {
         e.preventDefault();
         
         const {name, email, password} = this.state;
+        setTimeout(() => this.toggleModal(), 500)
         this.props.register({name, email, password});
     }
-    
+
     render() {
         return (
             <Fragment>

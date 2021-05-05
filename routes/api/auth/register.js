@@ -1,7 +1,5 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const User = require('../../../models/User');
-const jwtSecret = process.env.jwtSecret || require('config').get('jwtSecret');
 
 module.exports = (req, res) => {
     const {name, email, password} = req.body;
@@ -28,23 +26,7 @@ module.exports = (req, res) => {
                     newUser.password = hashedPassword;
                     newUser.save()
                         .then(user => {
-                            jwt.sign(
-                                {id: user.id},
-                                jwtSecret,
-                                {expiresIn: 43200},
-                                (err, token) => {
-                                    if (err) throw err;
-                                    res.json({
-                                        token,
-                                        user: {
-                                            id: user.id,
-                                            name: user.name,
-                                            email: user.email
-                                        },
-                                        categories: user.categories
-                                    });
-                                }
-                            );
+                            res.json({email: user.email, msg: "Registered Successfully, Open your email to verify your account"});
                         });
                 });
             });
