@@ -13,8 +13,7 @@ export const register = ({name, email, password}) => dispatch => {
     
     axios.post('/api/auth/register', body, config)
         .then(res => {
-            dispatch(returnAlert('success', res.data.msg))
-            setTimeout(() => dispatch(openEmailVerificationModal(res.data.email)), 1000)
+            dispatch(openEmailVerificationModal(res.data.email))
             dispatch(loaded());
         })
         .catch(err => {

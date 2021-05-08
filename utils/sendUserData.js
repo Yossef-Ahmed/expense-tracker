@@ -1,4 +1,4 @@
-module.exports = (user, token, res) => {
+module.exports = (user, token, res, msg = '') => {
     res.json({
         token,
         user: {
@@ -7,6 +7,7 @@ module.exports = (user, token, res) => {
             email: user.email
         },
         categories: user.categories,
-        userActive: user.active
+        userActive: user.active,
+        msg
     });
 }

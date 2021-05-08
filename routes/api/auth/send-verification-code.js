@@ -12,8 +12,7 @@ module.exports = (req, res) => {
 
     User.findOne({email, active: false})
         .then(user => {
-            const FifteenMin = 15 * 60 * 1000;
-            if ((new Date() - user.sentVerificationCodeAt) >= FifteenMin || sendNow === true) {
+            if (isCodeSentMoreThan15MinAgo((new Date() - user.sentVerificationCodeAt)) || sendNow === true) {
                 user.verificationCode = verificationCode;
                 user.sentVerificationCodeAt = new Date();
                 user.save(user => {
@@ -27,4 +26,8 @@ module.exports = (req, res) => {
         .catch(() => {
             res.json({msg: "The email is already validated or doesn't exist"})
         })
+}
+
+const isCodeSentMoreThan15MinAgo = (codeSentAt) => {
+    return codeSentAt >= (15 * 60 * 1000)
 }

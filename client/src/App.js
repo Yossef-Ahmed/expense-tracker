@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import Store from './Store';
-import {loadUser} from './actions/authActions';
+import {loadUser} from './actions/auth/loadUser';
 
 import Home from './pages/Home';
 import Transactions from './pages/Transactions';

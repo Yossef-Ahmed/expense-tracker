@@ -4,7 +4,7 @@ import {loading, loaded} from '../loaderActions';
 import {getCategories} from '../categoryActions';
 import {returnAlert} from './alert';
 import {returnMainAlert} from '../mainAlertActions';
-import {openEmailVerificationModal} from './toggleEmailVerification';
+import {closeEmailVerificationModal} from './toggleEmailVerification';
 import {
     AUTH_ERROR,
     VERIFY_EMAIL
@@ -19,8 +19,8 @@ export const verifyEmail = (email, verificationCode) => dispatch => {
 
     axios.post('/api/auth/verify-email', body, config)
         .then(res => {
-            dispatch(returnMainAlert('success', "Logged In Successfully"))
-            dispatch(openEmailVerificationModal(null, false));
+            dispatch(returnMainAlert('success', res.data.msg))
+            dispatch(closeEmailVerificationModal());
             dispatch(getCategories(res.data.categories));
             dispatch({
                 type: VERIFY_EMAIL,

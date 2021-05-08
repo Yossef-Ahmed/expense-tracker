@@ -3,7 +3,7 @@ import {Link, NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {logout} from '../../actions/authActions';
+import {logout} from '../../actions/auth/logout';
 
 import LoginModal from '../Home/LoginModal';
 import AddTransaction from '../Transactions/TransactionForm';

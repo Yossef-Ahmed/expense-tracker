@@ -22,7 +22,7 @@ export const login = ({email, password}) => dispatch => {
                 dispatch(returnAlert('danger', res.data.msg))
                 setTimeout(() => dispatch(openEmailVerificationModal(res.data.email)), 1000)
             } else {
-                dispatch(returnMainAlert('success', "Logged In Successfully"))
+                dispatch(returnMainAlert('success', res.data.msg))
                 dispatch(getCategories(res.data.categories));
                 dispatch({
                     type: LOGIN_SUCCESS,

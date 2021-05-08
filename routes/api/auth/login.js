@@ -17,10 +17,11 @@ module.exports = (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(!isMatch) return res.status(400).json({msg: 'Please enter the right email and password'});
+                    
                     if(user.active) {
                         createJWT(user.id, (err, token) => {
                             if (err) throw err;
-                            sendUserData(user, token, res);
+                            sendUserData(user, token, res, "Logged In Successfully");
                         });
                     } else {
                         res.json({msg: "Please verify your email first", userActive: false, email: user.email})

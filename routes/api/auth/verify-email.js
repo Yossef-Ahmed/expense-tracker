@@ -14,7 +14,7 @@ module.exports = (req, res) => {
                 .then(user => {
                     createJWT(user._id, (err, token) => {
                         if (err) throw err;
-                        sendUserData(user, token, res);
+                        sendUserData(user, token, res, "Logged In Successfully");
                     });
                 });
         })
