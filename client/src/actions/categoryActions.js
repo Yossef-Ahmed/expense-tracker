@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {returnAlert} from './alertActions';
+import {returnMainAlert} from './mainAlertActions';
 import {loading, loaded} from './loaderActions';
 import {setConfirm} from './confirmActions';
 import {setTokenAndConfig} from './requestConfig';
@@ -42,7 +42,7 @@ export const createCategory = item => (dispatch, getState) => {
     // Send the request
     axios.post(`/api/user/categories/`, body, setTokenAndConfig(getState))
         .then(res => {
-            dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
+            dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: CREATE_CATEGORY,
                 payload: res.data.category
@@ -50,7 +50,7 @@ export const createCategory = item => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }
@@ -63,7 +63,7 @@ export const updateCategory = item => (dispatch, getState) => {
     // Send the request
     axios.patch(`/api/user/categories/${item._id}`, body, setTokenAndConfig(getState))
         .then(res => {
-            dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
+            dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: UPDATE_CATEGORY,
                 payload: res.data.category
@@ -71,7 +71,7 @@ export const updateCategory = item => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }
@@ -83,7 +83,7 @@ export const deleteCategory = catId => (dispatch, getState) => {
     axios.delete(`/api/user/categories/${catId}`, setTokenAndConfig(getState))
         .then(res => {
             dispatch(setConfirm());
-            dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
+            dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: DELETE_CATEGORY,
                 payload: catId
@@ -91,7 +91,7 @@ export const deleteCategory = catId => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }

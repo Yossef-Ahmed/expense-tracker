@@ -4,8 +4,9 @@ import {
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
     VERIFY_EMAIL,
-    REQUEST_VEREIFICATION_CODE,
-    TOGGLE_EMAIL_VERIFICATION_MODAL
+    TOGGLE_EMAIL_VERIFICATION_MODAL,
+    SHOW_AUTH_ALERT,
+    CLEAR_AUTH_ALERT
 } from '../actions/types';
 
 const initialState = {
@@ -14,7 +15,9 @@ const initialState = {
     user: null,
     isEmailVerificationOpen: false,
     sendVerificationCodeNow: false,
-    emailToVerify: null
+    emailToVerify: null,
+    alertMsg: null,
+    alertType: null
 }
 
 export default function(state = initialState, action) {
@@ -31,7 +34,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 ...action.payload,
-                isAuthenticated: true,
+                isAuthenticated: true
             }
         case TOGGLE_EMAIL_VERIFICATION_MODAL:
             return {
@@ -47,6 +50,18 @@ export default function(state = initialState, action) {
                 token: null,
                 isAuthenticated: false,
                 user: null
+            }
+        case SHOW_AUTH_ALERT:
+            return {
+                ...state,
+                alertMsg: action.payload.msg,
+                alertType: action.payload.type
+            }
+        case CLEAR_AUTH_ALERT:
+            return {
+                ...state,
+                alertMsg: null,
+                alertType: null
             }
         default:
             return {

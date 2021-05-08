@@ -3,20 +3,22 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import {login} from '../../actions/authActions';
+import {login} from '../../actions/auth/login';
+import {clearAlert} from '../../actions/auth/alert';
 
 import Modal from '../Reuseable/Modal'
-import GoogleBtn from './GoogleBtn'
+import Alert from '../Reuseable/Alert';
 
 export class Login extends Component {
     state = {
         modal: false,
-        msg: null,
         email: '',
         password: ''
     }
     static propTypes = {
-        login: PropTypes.func.isRequired
+        login: PropTypes.func.isRequired,
+        closeMobileMenu: PropTypes.func,
+        clearAlert: PropTypes.func.isRequired
     }
 
     focusOnInput = e => {
@@ -33,6 +35,7 @@ export class Login extends Component {
     
     onSubmit = e => {
         e.preventDefault();
+        this.props.closeMobileMenu()
         
         const {email, password} = this.state;
         this.props.login({email, password});
@@ -40,6 +43,7 @@ export class Login extends Component {
 
     toggleModal = () => {
         this.setState({modal: !this.state.modal});
+        this.props.clearAlert();
     }
 
     render() {
@@ -58,11 +62,9 @@ export class Login extends Component {
                 <Modal isOpen={this.state.modal} toggleModal={this.toggleModal}>
                     <form className="form" onSubmit={this.onSubmit}>
                         <h2 className="form__title">Sign In</h2>
+
+                        <Alert msg={this.props.alertMsg} type={this.props.alertType} clearAlert={this.props.clearAlert} />
                         
-                        <GoogleBtn method="Sign In" />
-
-                        <div className="form__span">Or</div>
-
                         <div className="input-field" onClick={this.focusOnInput}>
                             <p className="input-field__label">Email</p>
                             <input
@@ -88,8 +90,6 @@ export class Login extends Component {
                         </div>
 
                         <button type="submit" className="btn btn--block btn--green">Sign In</button>
-
-                        <span className="form__reset-password">Forgot Your Password?</span>
                     </form>
                 </Modal>
             </Fragment>
@@ -97,4 +97,9 @@ export class Login extends Component {
     }
 }
 
-export default withRouter(connect(null, {login})(Login));
+const mapStateToProps = state => ({
+    alertMsg: state.auth.alertMsg,
+    alertType: state.auth.alertType
+})
+
+export default withRouter(connect(mapStateToProps, {login, clearAlert})(Login));

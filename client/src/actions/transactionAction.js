@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {returnAlert} from './alertActions';
+import {returnMainAlert} from './mainAlertActions';
 import {loading, loaded} from './loaderActions';
 import {setConfirm} from './confirmActions';
 import {setTokenAndConfig} from './requestConfig';
@@ -42,7 +42,7 @@ export const getTransactions = date => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }
@@ -68,7 +68,7 @@ export const createTransaction = item => (dispatch, getState) => {
     // Send the request
     axios.post(`/api/transactions/create`, body, setTokenAndConfig(getState))
         .then(res => {
-            dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
+            dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: CREATE_TRANSACTION,
                 payload: res.data.transaction
@@ -76,7 +76,7 @@ export const createTransaction = item => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }
@@ -89,7 +89,7 @@ export const updateTransaction = item => (dispatch, getState) => {
     // Send the request
     axios.patch(`/api/transactions/${item._id}`, body, setTokenAndConfig(getState))
         .then(res => {
-            dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
+            dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: UPDATE_TRANSACTION,
                 payload: res.data.transaction
@@ -97,7 +97,7 @@ export const updateTransaction = item => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }
@@ -109,7 +109,7 @@ export const deleteTransaction = tranId => (dispatch, getState) => {
     axios.delete(`/api/transactions/${tranId}`, setTokenAndConfig(getState))
         .then(res => {
             dispatch(setConfirm());
-            dispatch(returnAlert(res.data.msg, 'Success!', 'success'));
+            dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: DELETE_TRANSACTION,
                 payload: tranId
@@ -117,7 +117,7 @@ export const deleteTransaction = tranId => (dispatch, getState) => {
             dispatch(loaded());
         })
         .catch(err => {
-            dispatch(returnAlert(err.response.data.msg, 'Error!', 'danger'));
+            dispatch(returnMainAlert(err.response.data.msg, 'Error!', 'danger'));
             dispatch(loaded());
         });
 }

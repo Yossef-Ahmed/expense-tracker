@@ -3,25 +3,27 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 
-import {register} from '../../actions/authActions';
+import {register} from '../../actions/auth/register';
+import {clearAlert} from '../../actions/auth/alert';
 
 import Modal from '../Reuseable/Modal'
-import GoogleBtn from './GoogleBtn'
+import Alert from '../Reuseable/Alert';
 
 export class RegisterModal extends Component {
     state = {
         modal: false,
-        msg: null,
         name: '',
         email: '',
         password: ''
     }
     static propTypes = {
-        register: PropTypes.func.isRequired
+        register: PropTypes.func.isRequired,
+        clearAlert: PropTypes.func.isRequired
     }
 
     toggleModal = () => {
         this.setState({modal: !this.state.modal});
+        this.props.clearAlert();
     }
 
     focusOnInput = e => {
@@ -40,7 +42,6 @@ export class RegisterModal extends Component {
         e.preventDefault();
         
         const {name, email, password} = this.state;
-        setTimeout(() => this.toggleModal(), 500)
         this.props.register({name, email, password});
     }
 
@@ -52,11 +53,9 @@ export class RegisterModal extends Component {
                 <Modal isOpen={this.state.modal} toggleModal={this.toggleModal}>
                     <form className="form" onSubmit={this.onSubmit}>
                         <h2 className="form__title">Sign Up</h2>
+
+                        <Alert msg={this.props.alertMsg} type={this.props.alertType} clearAlert={this.props.clearAlert} />
                         
-                        <GoogleBtn method="Sign Up" />
-
-                        <div className="form__span">Or</div>
-
                         <div className="input-field" onClick={this.focusOnInput}>
                             <p className="input-field__label">Full Name</p>
                             <input
@@ -101,4 +100,9 @@ export class RegisterModal extends Component {
     }
 }
 
-export default withRouter(connect(null, {register})(RegisterModal));
+const mapStateToProps = state => ({
+    alertMsg: state.auth.alertMsg,
+    alertType: state.auth.alertType
+})
+
+export default withRouter(connect(mapStateToProps, {register, clearAlert})(RegisterModal));

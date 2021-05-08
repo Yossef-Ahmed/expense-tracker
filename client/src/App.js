@@ -12,7 +12,7 @@ import PageNotFound from './pages/PageNotFound';
 import Navbar from './components/Layouts/Navbar';
 import Footer from './components/Layouts/Footer';
 import Loader from './components/Others/Loader';
-import Alert from './components/Others/Alert';
+import MainAlert from './components/Others/MainAlert';
 import ConfirmModal from './components/Others/ConfirmModal';
 
 import './sass/App.scss';
@@ -48,10 +48,10 @@ class App extends Component {
         <Router>
           <div className="App">
             <Loader />
-            <Alert />
             <ConfirmModal />
             <Navbar />
             <div className="content">
+              <MainAlert />
               <Switch>
                 <Route exact path="/" component={isAuthenticated ? Transactions : Home} />
                 <Route path="/categories" component={Categories} />

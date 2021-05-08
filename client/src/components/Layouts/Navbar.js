@@ -21,13 +21,18 @@ export class Navbar extends Component {
         e.target.nextElementSibling.classList.toggle('active');
     }
 
-    closeMobileMenu = e => {
-        e.target.parentElement.classList.toggle('active');
+    closeMobileMenu = () => {
+        document.querySelector('.navbar-menu__content').classList.toggle('active');
     }
 
     toggleUserLinksList = e => {
         document.querySelector('.navbar .user-links__list').classList.toggle("is-opend")
         document.querySelector('.navbar .user-links').classList.toggle("is-opend")
+    }
+
+    closeMenuAndLogout = () => {
+        this.closeMobileMenu()
+        this.props.logout()
     }
 
     render() {
@@ -48,7 +53,7 @@ export class Navbar extends Component {
                 </li>
             </Fragment>
         );
-        const guestLinks = <LoginModal />;
+        const guestLinks = <LoginModal closeMobileMenu={this.closeMobileMenu} />;
 
         return (
             <nav className="navbar">
@@ -81,7 +86,7 @@ export class Navbar extends Component {
                                             <i className="fas fa-user-edit"></i>
                                             Edit Profile
                                         </li>
-                                        <li onClick={this.props.logout}>
+                                        <li onClick={this.closeMenuAndLogout}>
                                             <i className="fas fa-sign-out-alt"></i>
                                             Logout
                                         </li>
