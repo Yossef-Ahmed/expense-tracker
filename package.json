@@ -21,6 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.4",
     "nodemailer": "^6.6.0",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.1",
+    "swagger-jsdoc": "^6.0.0",
+    "swagger-ui-express": "^4.1.6"
   }
 }

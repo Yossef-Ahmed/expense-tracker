@@ -1,6 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Expense Tracker',
+            version: '2.0.0',
+            discription: 'A finance management tool build with the MERN stack to help you record your daily transactions easily, discover your spending habits, and in general, Discover where your money goes.'
+        },
+    },
+    apis: [
+        './routes/api/auth/index.js'
+        // './routes/api*.js'
+    ]
+}
 
 const app = express();
 
@@ -14,6 +30,8 @@ mongoose.connect(DB_URI, { useUnifiedTopology: true, useNewUrlParser: true, useC
 
 
 const PORT = process.env.PORT || 5000;
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerOptions)));
 
 app.use('/api/auth', require('./routes/api/auth/index'));
 app.use('/api/transactions', require('./routes/api/transactions'));
