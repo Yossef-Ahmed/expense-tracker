@@ -1,9 +1,14 @@
 .form {
     padding: 50px 40px;
 
+    &--grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 20px;
+        padding: 30px 36px 21px 36px;
+    }
+
     &__title {
-        font-size: 34px;
-        font-weight: bold;
         text-align: center;
         margin-bottom: 40px;
     }
@@ -23,6 +28,15 @@
         &:hover {
             color: #c32e39;
         }
+    }
+
+    &-amount-value {
+        position: absolute;
+        left: 20px;
+        color: $mainColor;
+        font-size: 17px;
+        height: 21px;
+        line-height: 21px;
     }
 }
 

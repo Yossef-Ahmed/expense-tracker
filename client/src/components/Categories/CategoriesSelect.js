@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import CategoriesCard from './CategoriesCard';
 import {CSSTransition} from 'react-transition-group';
 import PropTypes from 'prop-types';
+import InputField from '../Reuseable/InputField';
 
 export class CategoriesSelect extends Component {
     state = {
@@ -36,9 +37,8 @@ export class CategoriesSelect extends Component {
         const cat = this.state.category;
         return (
             <Fragment>
-                <div className="form-group select-category" onClick={this.toggle}>
-                    <p className="form-label">Category</p>
-                    <div className="form-control">
+                <InputField label="Category" noInput={true} onClick={this.toggle} >
+                    <div className="input-field__input">
                         {cat ? (
                             <Fragment>
                                 <div className={`category-icon ${cat.type === '-' ? 'expense' : 'income'}`}>
@@ -48,7 +48,8 @@ export class CategoriesSelect extends Component {
                             </Fragment>
                         ) : "Select Category"}
                     </div>
-                </div>
+                </InputField>
+
                 <CSSTransition in={this.state.modal} timeout={400} unmountOnExit classNames="modal-fade">
                     <div className="modal-container" onClick={this.handleClickOutside}>
                         <div className="modal modal-select">

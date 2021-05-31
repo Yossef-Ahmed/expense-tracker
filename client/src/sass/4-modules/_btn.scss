@@ -6,6 +6,24 @@
     cursor: pointer;
     transition: .4s;
     border-radius: 4px;
+    position: relative;
+
+    &::before {
+        border-radius: inherit;
+        color: inherit;
+        content: "";
+        height: 100%;
+        left: 0;
+        opacity: .12;
+        position: absolute;
+        top: 0;
+        transition: .3s cubic-bezier(.25,.8,.5,1);
+        width: 100%;
+    }
+
+    &:not(.btn-disabled):hover:before {
+        background-color: currentColor;
+    }
 
     &--dark-green {
         background-color: #28996D;
@@ -23,9 +41,32 @@
         }
     }
 
+    &--gray {
+        color: $mainColor;
+    }
+
+    &--color-green {
+        color: $greenColor;
+    }
+
+    &--no-bg {
+        background-color: transparent;
+    }
+
     &--block {
         width: 100%;
         padding: 15px 20px;
+    }
+
+    &--sm {
+        font-size: 16px;
+    }
+
+    &--disabled {
+        background-color: rgba(0, 0, 0, 0.12) !important;
+        color: rgba(0, 0, 0, 0.26) !important;
+        border-color: transparent;
+        cursor: default;
     }
 }
 

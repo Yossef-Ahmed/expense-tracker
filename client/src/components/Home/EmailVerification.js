@@ -47,7 +47,7 @@ export class EmailVerification extends Component {
         return (
             <Modal isOpen={this.props.modal} toggleModal={this.closeModal}>
                 <form className="form" onSubmit={this.onSubmit}>
-                    <h2 className="form__title">We've Sent You An Email With The Verification Code</h2>
+                    <h2 className="modal__title form__title">We've Sent You An Email With The Verification Code</h2>
 
                     <Alert msg={this.props.alertMsg} type={this.props.alertType} clearAlert={this.props.clearAlert} />
 

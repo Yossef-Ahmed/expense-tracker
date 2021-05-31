@@ -1,30 +1,48 @@
 // Add comma every three digits to the number
-export const addComma = (num, isFloat=true) => {
+export const addComma = (num) => {
     if (num === null) return;
-    let numDecimals;
+    let floatResponse = '';
     let numComma = num;
-    if (isFloat) {
-        numDecimals = num.toString().split('.');
+
+    if (isAmountFloat(num)) {
+        const numDecimals = num.toString().split('.');
+        floatResponse = '.' + numDecimals[1];
         numComma = numDecimals[0];
     }
+
     numComma = numComma
-        .toString() // transform the number to string
-        .replace('-', '') // Remove any minus symbols
-        .split("") // transform the string to array with every digit becoming an element in the array
-        .reverse() // reverse the array so that we can start process the number from the least digit
+        .toString()
+        .replace('-', '')
+        .split("")
+        .reverse()
         .map((digit, index) =>
             index !== 0 && index % 3 === 0 ? `${digit},` : digit
-        ) // map every digit from the array.
-        // If the index is a multiple of 3 and it's not the least digit,
-        // that is the place we insert the comma behind.
-        .reverse() // reverse back the array so that the digits are sorted in correctly display order
+        )
+        .reverse()
         .join("");
-    return `${numComma}${isFloat ? '.' + numDecimals[1] : ''}`;
+
+    return `${numComma}${floatResponse}`;
 }
 
-// Remove any non numeric characters
-export const clearNumber = str => {
+export const isAmountFloat = str => {
+    return !Number.isInteger(parseFloat(str)) || str.search(/\./) > -1
+}
+
+export const removeNonNumericCharsFromString = str => {
     return str.replace(/[^\d.]/g, '');
+}
+
+export const leave2NumbersAfterDot = str => {
+    const dotIndex = str.indexOf('.');
+    str = str.replace(/\./g, '');
+    let amountArr = [str.slice(0, dotIndex), ".", str.slice(dotIndex)]
+    
+    if (amountArr[2].length > 2) {
+        amountArr[2] = amountArr[2].slice(0, 2);
+    }
+    
+    amountArr[0] = parseFloat(amountArr[0]).toString();
+    return str = amountArr.join('');
 }
 
 // Get the name of the day

@@ -62,7 +62,7 @@ export class TransactionDetails extends Component {
                                     <span className="card-title">Transaction details</span>
                                     <div className="card-buttons">
                                         <button className="card-btn card-btn-danger" onClick={this.deleteOnClick}>Delete</button>
-                                        <TransactionForm formType="Edit" />
+                                        <TransactionForm formMode="Edit" />
                                     </div>
                                 </div>
                                 <div className="card-body">

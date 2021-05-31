@@ -7,6 +7,10 @@
     min-height: 350px;
     margin-top: 10vh;
     
+    &--wide {
+        width: 840px;
+    }
+    
     &-fade-enter {
         opacity: 0;
     }
@@ -34,6 +38,25 @@
         justify-content: center;
         align-items: center;
         overflow: scroll;
+    }
+
+    &__header {
+        padding: 25px 30px;
+        border-bottom: 1px solid #E0E0E0;
+    }
+
+    &__title {
+        font-size: 34px;
+    }
+
+    &__btns {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 36px 20px 0;
+        
+        .btn:first-of-type {
+            margin-right: 16px;
+        }
     }
 }
 

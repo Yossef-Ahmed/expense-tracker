@@ -1,13 +1,18 @@
 .input-field {
     cursor: text;
     border-radius: 4px;
-    border: 1px solid $mainColor;
     padding: 6px 20px;
     height: 64px;
     margin-bottom: 20px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,.4);
 
     &:hover {
-        border: 1px solid rgba(0,0,0,.4);
+        border: 1px solid $mainColor;
+    }
+
+    &--clickable {
+        cursor: pointer;
     }
 
     &__label {

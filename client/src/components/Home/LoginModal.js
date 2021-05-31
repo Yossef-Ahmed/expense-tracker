@@ -61,7 +61,7 @@ export class Login extends Component {
 
                 <Modal isOpen={this.state.modal} toggleModal={this.toggleModal}>
                     <form className="form" onSubmit={this.onSubmit}>
-                        <h2 className="form__title">Sign In</h2>
+                        <h2 className="modal__title form__title">Sign In</h2>
 
                         <Alert msg={this.props.alertMsg} type={this.props.alertType} clearAlert={this.props.clearAlert} />
                         
