@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types'
 
 import InputField from '../Reuseable/InputField';
@@ -18,6 +18,12 @@ function CategoriesSelect(props) {
         props.saveValue(cat._id);
         toggleModal();
     }
+
+    useEffect(() => {
+        if (props.category) {
+            setCategory(props.category);
+        }
+    }, [props.category, setCategory]);
 
     return (
         <Fragment>

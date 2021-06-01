@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types'
 
 import {createTransaction, updateTransaction} from '../../actions/transactionAction';
 import {addComma, removeNonNumericCharsFromString, leave2NumbersAfterDot, isAmountFloat} from '../../utils/index';
@@ -143,6 +144,14 @@ const TransactionForm = (props) => {
             </Modal>
         </Fragment>
     )
+}
+
+TransactionForm.propTypes = {
+    createTransaction: PropTypes.func.isRequired,
+    updateTransaction: PropTypes.func.isRequired,
+    item: PropTypes.object,
+    categories: PropTypes.array,
+    formMode: PropTypes.string
 }
 
 const mapStateToProps = state => ({
