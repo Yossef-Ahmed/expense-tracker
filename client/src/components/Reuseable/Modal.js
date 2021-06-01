@@ -8,7 +8,7 @@ function Modal(props) {
     const modalCustomClass = props.modalCustomClass ? props.modalCustomClass : '';
 
     const handleClickOutside = e => {
-        const firstElementAfterModalContainer = modalCustomClass !== '' ? modalCustomClass : 'modal';
+        const firstElementAfterModalContainer = modalCustomClass !== '' ? modalCustomClass.split(" ")[0] : 'modal';
         if (e.target.classList.contains('modal-container') && e.target.firstElementChild.classList.contains(firstElementAfterModalContainer)) {
             props.toggleModal();
         }

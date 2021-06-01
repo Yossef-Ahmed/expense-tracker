@@ -1,184 +1,143 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {createCategory, updateCategory} from '../../actions/categoryActions';
-import {CSSTransition} from 'react-transition-group';
 
-export class CategoriesForm extends Component {
-    state = {
-        modal: false,
-        type: '+',
-        name: '',
-        valid: false
+import {createCategory, updateCategory} from '../../actions/categoryActions';
+
+import Modal from '../Reuseable/Modal'
+import InputField from '../Reuseable/InputField';
+
+function CategoriesForm(props) {
+    const [modal, setModal] = useState(false);
+    const [type, setType] = useState('+');
+    const [name, setName] = useState('');
+    const [valid, setValid] = useState(false);
+
+    const toggleModal = () => {
+        setModal((prevValue) => !prevValue);
     }
-    static propTypes = {
-        formType: PropTypes.string,
-        item: PropTypes.object,
-        createCategory: PropTypes.func.isRequired,
-        updateCategory: PropTypes.func.isRequired
+
+    const toggleAddModal = () => {
+        setType('+');
+        setName('');
+        setValid(false);
+        toggleModal()
     }
-    componentDidMount() {
-        if (this.props.formType === 'Edit') {
-            const item = this.props.item;
-            this.setState({
-                name: item.name,
-                type: item.type
-            });
-        }
-    }
-    componentDidUpdate(prevProps, prevState) {
-        // Get current state
-        const {type, name} = this.state;
-        if (prevState.name !== name || prevState.type !== type) {
-            // Validate the form
-            this.validation();
-        }
-    }
-    inputFocus = e => {
-        if (e.target.className === 'form-label') {
-            e.target.nextElementSibling.focus();
-        } else if (e.target.className === 'form-group') {
-            e.target.lastElementChild.focus();
-        }
-    }
-    onChange = e => {
-        // Change the input value
-        this.setState({[e.target.name]: e.target.value});
-    }
-    toggle = () => {
-        this.setState({
-            name: '',
-            type: '+',
-            modal: !this.state.modal
-        });
-    }
-    toggleEditForm = () => {
-        this.setState({modal: !this.state.modal});
-    }
-    choose = e => {
-        // Initiate Variables
+
+    const chooseType = e => {
         let chooseBtn = e.target;
-        // Check the clicked button
-        if (chooseBtn.classList.contains('choose-icon') || chooseBtn.classList.contains('choose-text')) {
+        
+        if (chooseBtn.classList.contains('form-choose__icon') || chooseBtn.classList.contains('form-choose__text')) {
             chooseBtn = chooseBtn.parentElement;
         } else if (chooseBtn.tagName === 'SPAN') {
             chooseBtn = chooseBtn.parentElement.parentElement;
         }
-        // Save the value to state
-        this.setState({type: chooseBtn.dataset.type});
+        
+        setType(chooseBtn.dataset.type)
     }
-    validation = () => {
-        const {name, type} = this.state;
-        let valid = false;
-        if (name !== '' && type !== '') {
-            valid = true;
-        }
-        this.setState({valid})
-    }
-    saveCategory = () => {
-        // Get the values
-        const {name, type} = this.state;
-        // Save the category
-        if (this.props.formType === 'Edit') {
-            // Get the category
-            const category = this.props.item;
-            // Update it's values
+
+    const isEdit = props.formMode === 'Edit' ? true : false;
+
+    const saveCategory = () => {
+        if (isEdit) {
+            const category = props.category;
             category.name = name;
             category.type = type;
-            // Send it to the database
-            this.props.updateCategory(category);
-            // Close the modal
-            this.toggleEditForm();
+            
+            props.updateCategory(category);
+            toggleModal();
         } else {
-            this.props.createCategory({
+            props.createCategory({
                 name,
                 type
             });
-            // Close the modal
-            this.toggle();
+            
+            toggleAddModal();
         }
     }
-    handleClickOutside = e => {
-        if (e.target.classList.contains('modal-container')) {
-            if (this.props.formType === 'Edit') {
-                this.toggleEditForm();
-            } else {
-                this.toggle();
+
+    useEffect(() => {
+        if (isEdit) {
+            const item = props.item;
+
+            setName(item.name);
+            setType(item.type);
+        }
+    }, [setName, setType, isEdit, props.item]);
+
+    useEffect(() => {
+        const validation = () => {
+            let valid = false;
+    
+            if (name !== '' && type !== '') {
+                valid = true;
             }
+    
+            setValid(valid);
         }
-    }
-    render() {
-        const {valid, type, name, modal} = this.state;
-        const isEdit = this.props.formType === 'Edit' ? true : false;
-        return (
-            <Fragment>
-                {isEdit ? (
-                    this.props.screen === "Mobile" ? (
-                        <button className="btn btn-secondary" onClick={this.toggleEditForm}>Edit</button>
-                    ) : (
-                        <button className="card-btn card-btn-success" onClick={this.toggleEditForm}>Edit</button>
-                    )
-                ) : (
-                    <li onClick={this.toggle}>
-                        <i className="fas fa-plus"></i>
-                        Add New Category
-                    </li>
-                ) }
-                <CSSTransition in={modal} timeout={400} unmountOnExit classNames="modal-fade">
-                    <div className="modal-container" onClick={this.handleClickOutside}>
-                        <div className="modal modal-with-form modal-category">
-                            <div className="modal-header">
-                                <h3>{`${isEdit ? 'Edit' : 'Add'} Category`}</h3>
+
+        validation();
+    }, [name, type]);
+
+    return (
+        <Fragment>
+            {isEdit ? (
+                <button className="card-btn card-btn-success" onClick={toggleModal}>Edit</button>
+            ) : (
+                <li onClick={toggleAddModal}>
+                    <i className="fas fa-plus"></i>
+                    Add New Category
+                </li>
+            )}
+
+            <Modal isOpen={modal} toggleModal={toggleModal} modalCustomClass={'modal-category modal--wide'}>
+                <div className="modal__header">
+                    <h2 className="modal__title">{`${isEdit ? 'Edit' : 'Add'} Category`}</h2>
+                </div>
+
+                <form className="form" onSubmit={e => e.preventDefault()}>
+                    <div className="form-choose-container">
+                        <div className="form-choose" onClick={chooseType} data-type="+">
+                            <div className={`form-choose__icon ${type === "+" ? "active" : ""}`}>
+                                <span></span>
                             </div>
-                            <div className="modal-body">
-                                <div className="modal-form">
-                                    <div className="modal-form-row">
-                                        <div className="form-choose" onClick={this.choose} data-type="+">
-                                            <div className={`choose-icon ${type === "+" ? "active" : ""}`}>
-                                                <span></span>
-                                            </div>
-                                            <span className="choose-text">Income</span>
-                                        </div>
-                                        <div className="form-choose" onClick={this.choose} data-type="-">
-                                            <div className={`choose-icon ${type === "-" ? "active" : ""}`}>
-                                                <span></span>
-                                            </div>
-                                            <span className="choose-text">Expense</span>
-                                        </div>
-                                    </div>
-                                    <div className="modal-form-row">
-                                        <div className="form-group" onClick={this.inputFocus}>
-                                            <p className="form-label">Category Name</p>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                id="name"
-                                                className="form-control"
-                                                placeholder="Category Name"
-                                                onChange={this.onChange}
-                                                value={name}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
+
+                            <span className="form-choose__text">Income</span>
+                        </div>
+
+                        <div className="form-choose" onClick={chooseType} data-type="-">
+                            <div className={`form-choose__icon ${type === "-" ? "active" : ""}`}>
+                                <span></span>
                             </div>
-                            <div className="modal-buttons">
-                                <button className="btn btn-secondary" onClick={isEdit ? this.toggleEditForm : this.toggle}>Cancel</button>
-                                {valid
-                                    ? <button className='btn btn-success' onClick={this.saveCategory}>Save</button>
-                                    : <button className='btn btn-success btn-disabled' disabled='disabled'>Save</button>
-                                }
-                            </div>
+
+                            <span className="form-choose__text">Expense</span>
                         </div>
                     </div>
-                </CSSTransition>
-            </Fragment>
-        )
-    }
+
+                    <InputField label="Category Name" name="name" placeholder="Gas, Salary, ect." saveValue={setName} />
+                </form>
+                
+                <div className="modal__btns">
+                    <button className="btn btn--gray btn--sm" onClick={isEdit ? toggleModal : toggleAddModal}>Cancel</button>
+                    {valid
+                        ? <button className='btn btn--sm btn--green' onClick={saveCategory}>Save</button>
+                        : <button className='btn btn--sm btn--green btn--disabled' disabled='disabled'>Save</button>
+                    }
+                </div>
+            </Modal>
+        </Fragment>
+    )
+}
+
+CategoriesForm.propTypes = {
+    formMode: PropTypes.string,
+    item: PropTypes.object,
+    createCategory: PropTypes.func.isRequired,
+    updateCategory: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     item: state.categories.item
 });
 
-export default connect(mapStateToProps, {createCategory, updateCategory})(CategoriesForm);
+export default connect(mapStateToProps, {createCategory, updateCategory})(CategoriesForm)

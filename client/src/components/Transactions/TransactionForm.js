@@ -32,8 +32,6 @@ const TransactionForm = (props) => {
     }
 
     const handleAmount = amount => {
-        // let amount = e.target.value;
-
         if (amount !== '') {
             amount = removeNonNumericCharsFromString(amount);
 

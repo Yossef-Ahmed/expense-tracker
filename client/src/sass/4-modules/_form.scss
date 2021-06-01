@@ -38,6 +38,59 @@
         height: 21px;
         line-height: 21px;
     }
+
+    &-choose {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        width: 136px;
+        margin-right: 35px;
+        cursor: pointer;
+
+        &:hover &__icon:not(.active) span {
+            background-color: $mainColor;
+        }
+
+        &-container {
+            display: flex;
+            margin-bottom: 24px;
+        }
+        
+        &__icon {
+            cursor: pointer;
+            height: 20px;
+            width: 20px;
+            border: 2px solid $mainColor;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            padding: 5px;
+            justify-content: center;
+            align-items: center;
+            margin-right: 19px;
+
+            span {
+                background-color: transparent;
+                padding: 5px;
+                display: block;
+                border-radius: 50%;
+            }
+
+            &.active {
+                border-color: $greenColor;
+
+                span {
+                    background-color: $greenColor;
+                }
+            }
+        }
+
+        &__text {
+            font-size: 14px;
+            color: $mainColor;
+            cursor: pointer;
+        }
+    }
 }
 
 @media only screen and (max-width: 500px) {
