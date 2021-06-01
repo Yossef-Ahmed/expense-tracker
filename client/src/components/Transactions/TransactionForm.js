@@ -120,7 +120,7 @@ const TransactionForm = (props) => {
                 </div>
 
                 <form className="form form--grid" onSubmit={e => e.preventDefault()}>
-                    <CategoriesSelect saveValue={(name, val) => setCategoryId(val)} category={category} />
+                    <CategoriesSelect saveValue={(val) => setCategoryId(val)} category={category} />
 
                     <InputField label="Amount" name="amount" defaultValue={amount !== '' ? addComma(amount) : ''} saveValue={(val) => handleAmount(val)}>
                         {amount === '' ? (

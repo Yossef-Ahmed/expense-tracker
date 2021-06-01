@@ -1,29 +1,36 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import {CSSTransition} from 'react-transition-group'
 
 import BackBtn from '../../images/back.png'
 
-export class Modal extends Component {
-    handleClickOutside = e => {
-        if (e.target.classList.contains('modal-container') && e.target.dataset.modal === "true") {
-            this.props.toggleModal();
+function Modal(props) {
+    const modalCustomClass = props.modalCustomClass ? props.modalCustomClass : '';
+
+    const handleClickOutside = e => {
+        const firstElementAfterModalContainer = modalCustomClass !== '' ? modalCustomClass : 'modal';
+        if (e.target.classList.contains('modal-container') && e.target.firstElementChild.classList.contains(firstElementAfterModalContainer)) {
+            props.toggleModal();
         }
     }
 
-    render() {
-        const modalCustomClass = this.props.modalCustomClass ? this.props.modalCustomClass : '';
-
-        return (
-            <CSSTransition in={this.props.isOpen} timeout={400} unmountOnExit classNames="modal-fade">
-                <div className="modal-container" onClick={this.handleClickOutside} data-modal="true">
-                    <div className={`modal ${modalCustomClass}`}>
-                        <img className="mobile-back-btn" onClick={this.props.toggleModal} src={BackBtn} alt="Left Arrow"/>
-                        {this.props.children}
-                    </div>
+    return (
+        <CSSTransition in={props.isOpen} timeout={400} unmountOnExit classNames="modal-fade">
+            <div className="modal-container" onClick={handleClickOutside}>
+                <div className={`modal ${modalCustomClass}`}>
+                    <img className="mobile-back-btn" onClick={props.toggleModal} src={BackBtn} alt="Left Arrow"/>
+                    {props.children}
                 </div>
-            </CSSTransition>
-        )
-    }
+            </div>
+        </CSSTransition>
+    )
+}
+
+Modal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    toggleModal: PropTypes.func.isRequired,
+    modalCustomClass: PropTypes.string
 }
 
 export default Modal
+

@@ -1,11 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types'
-import {CSSTransition} from 'react-transition-group'
 
 import {chunkArrayInGroups, findMonthBegging, formatDate} from '../../utils/index';
 import InputField from '../Reuseable/InputField';
-
-import BackBtn from '../../images/back.png'
+import Modal from '../Reuseable/Modal'
 
 const SelectDate = props => {
     const {saveValue} = props;
@@ -19,12 +17,6 @@ const SelectDate = props => {
 
     const toggleModal = () => {
         setModal(prevModal => !prevModal)
-    }
-
-    const handleClickOutside = e => {
-        if (e.target.classList.contains('modal-container') && e.target.firstElementChild.classList.contains('modal-date-container')) {
-            toggleModal();
-        }
     }
 
     const changeView = e => {
@@ -135,147 +127,139 @@ const SelectDate = props => {
                 </div>
             </InputField>
 
-            <CSSTransition in={modal} timeout={400} unmountOnExit classNames="modal-fade">
-                <div className="modal-container" onClick={handleClickOutside}>
-                    <div className="modal-date-container">
-                        <div className="modal modal-date">
-                            <img className="mobile-back-btn" onClick={toggleModal} src={BackBtn} alt="Left Arrow"/>
-
-                            <div className="modal-header">
-                                <div className="date-title">
-                                    <div className="date-year" onClick={changeView} data-mode="direct" data-view="Years">
-                                        {year}
-                                    </div>
-                                    <div className="date-full" onClick={changeView} data-mode="direct" data-view="Days">
-                                        {date.toLocaleDateString("en-US", {weekday: 'short', month: 'short', day: 'numeric'})}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="modal-body">
-                                {(() => {
-                                    if (view === "Days" || view === "Months") {
-                                        return (
-                                            <div className="date-slider">
-                                                <div className="date-slider-btn slider-prev" onClick={prevSlide}>
-                                                    <i className="fas fa-angle-left"></i>
-                                                </div>
-                                                <div className="date-slider-current" onClick={changeView} data-mode="backwards">
-                                                    {view === "Days" ? currDate.toLocaleDateString("en-US", {month: 'long', year: 'numeric'}) : year}
-                                                </div>
-                                                <div className="date-slider-btn slider-next" onClick={nextSlide}>
-                                                    <i className="fas fa-angle-right"></i>
-                                                </div>
-                                            </div>
-                                        );
-                                    }
-                                })()}
-                                {(() => {
-                                    if (view === "Days") {
-                                        const lastDayOfCurrMonth = new Date(new Date().setFullYear(currDate.getFullYear(), currDate.getMonth() + 1, 0)).getDate();
-                                        
-                                        let days = [];
-                                        let start = 1;
-                                        for (; start <= lastDayOfCurrMonth; start++) {
-                                            days.push({num: start, date: new Date(new Date().setFullYear(year, month, start))});
-                                        }
-                                        
-                                        days = findMonthBegging(days);
-                                        days = chunkArrayInGroups(days, 7);
-
-                                        return (
-                                            <div className="date-picker">
-                                                <table className="days-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>S</th>
-                                                            <th>M</th>
-                                                            <th>T</th>
-                                                            <th>W</th>
-                                                            <th>T</th>
-                                                            <th>F</th>
-                                                            <th>S</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {days.map(week => (
-                                                            <tr>
-                                                                {week.map(day => {
-                                                                    if (day !== "") {
-                                                                        const isActive = day.date.getDate() === date.getDate() && day.date.getMonth() === date.getMonth() && day.date.getFullYear() === date.getFullYear() ? true : false;
-                                                                        return (
-                                                                            <td>
-                                                                                <button onClick={chooseDate} className={`date-picker-btn ${isActive ? "active-btn" : null}`} data-date={day.date.getTime()}>
-                                                                                    {day.num}
-                                                                                </button>
-                                                                            </td>
-                                                                        );
-                                                                    } else {
-                                                                        return <td></td>;
-                                                                    }
-                                                                })}
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        );
-                                    } else if (view === "Months") {
-                                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                        
-                                        let monthsChunked = chunkArrayInGroups(months, 3);
-                                        return (
-                                            <div className="date-picker">
-                                                <table className="months-table">
-                                                    <tbody>
-                                                        {monthsChunked.map(row => (
-                                                            <tr>
-                                                                {row.map(mon => {
-                                                                    let monDate = new Date(new Date().setFullYear(year, months.indexOf(mon), 1));
-                                                                    const isActive = monDate.getMonth() === date.getMonth() && monDate.getFullYear() === date.getFullYear() ? true : false;
-                                                                    return (
-                                                                        <td>
-                                                                            <button onClick={chooseMonth} className={`date-picker-btn ${isActive ? "active-btn" : null}`} data-date={monDate.getTime()}>
-                                                                                {mon}
-                                                                            </button>
-                                                                        </td>
-                                                                    );
-                                                                    
-                                                                })}
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        );
-                                    } else if (view === "Years") {
-                                        const thisYear = parseInt(year);
-                                        let start = thisYear - 100;
-                                        let years = [];
-
-                                        for (; start <= thisYear + 100; start++) {
-                                            years.push(start);
-                                        }
-
-                                        return (
-                                            <div className="date-picker date-picker-years">
-                                                <ul className="years-list">
-                                                    {years.map(ele => (
-                                                        <li onClick={chooseYear} className={ele === thisYear ? "active-btn" : null}>{ele}</li>
-                                                    ))}
-                                                </ul>
-                                            </div>
-                                        );
-                                    }
-                                })()}
-                            </div>
-                            <div className="modal__btns">
-                                <button className="btn btn--color-green btn--no-bg btn--sm" onClick={toggleModal}>Cancel</button>
-                            </div>
+            <Modal isOpen={modal} toggleModal={toggleModal} modalCustomClass="modal-date">
+                <div className="modal-header">
+                    <div className="date-title">
+                        <div className="date-year" onClick={changeView} data-mode="direct" data-view="Years">
+                            {year}
+                        </div>
+                        <div className="date-full" onClick={changeView} data-mode="direct" data-view="Days">
+                            {date.toLocaleDateString("en-US", {weekday: 'short', month: 'short', day: 'numeric'})}
                         </div>
                     </div>
                 </div>
-            </CSSTransition>
+
+                <div className="modal-body">
+                    {(() => {
+                        if (view === "Days" || view === "Months") {
+                            return (
+                                <div className="date-slider">
+                                    <div className="date-slider-btn slider-prev" onClick={prevSlide}>
+                                        <i className="fas fa-angle-left"></i>
+                                    </div>
+                                    <div className="date-slider-current" onClick={changeView} data-mode="backwards">
+                                        {view === "Days" ? currDate.toLocaleDateString("en-US", {month: 'long', year: 'numeric'}) : year}
+                                    </div>
+                                    <div className="date-slider-btn slider-next" onClick={nextSlide}>
+                                        <i className="fas fa-angle-right"></i>
+                                    </div>
+                                </div>
+                            );
+                        }
+                    })()}
+                    {(() => {
+                        if (view === "Days") {
+                            const lastDayOfCurrMonth = new Date(new Date().setFullYear(currDate.getFullYear(), currDate.getMonth() + 1, 0)).getDate();
+                            
+                            let days = [];
+                            let start = 1;
+                            for (; start <= lastDayOfCurrMonth; start++) {
+                                days.push({num: start, date: new Date(new Date().setFullYear(year, month, start))});
+                            }
+                            
+                            days = findMonthBegging(days);
+                            days = chunkArrayInGroups(days, 7);
+
+                            return (
+                                <div className="date-picker">
+                                    <table className="days-table">
+                                        <thead>
+                                            <tr>
+                                                <th>S</th>
+                                                <th>M</th>
+                                                <th>T</th>
+                                                <th>W</th>
+                                                <th>T</th>
+                                                <th>F</th>
+                                                <th>S</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {days.map(week => (
+                                                <tr>
+                                                    {week.map(day => {
+                                                        if (day !== "") {
+                                                            const isActive = day.date.getDate() === date.getDate() && day.date.getMonth() === date.getMonth() && day.date.getFullYear() === date.getFullYear() ? true : false;
+                                                            return (
+                                                                <td>
+                                                                    <button onClick={chooseDate} className={`date-picker-btn ${isActive ? "active-btn" : null}`} data-date={day.date.getTime()}>
+                                                                        {day.num}
+                                                                    </button>
+                                                                </td>
+                                                            );
+                                                        } else {
+                                                            return <td></td>;
+                                                        }
+                                                    })}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            );
+                        } else if (view === "Months") {
+                            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                            
+                            let monthsChunked = chunkArrayInGroups(months, 3);
+                            return (
+                                <div className="date-picker">
+                                    <table className="months-table">
+                                        <tbody>
+                                            {monthsChunked.map(row => (
+                                                <tr>
+                                                    {row.map(mon => {
+                                                        let monDate = new Date(new Date().setFullYear(year, months.indexOf(mon), 1));
+                                                        const isActive = monDate.getMonth() === date.getMonth() && monDate.getFullYear() === date.getFullYear() ? true : false;
+                                                        return (
+                                                            <td>
+                                                                <button onClick={chooseMonth} className={`date-picker-btn ${isActive ? "active-btn" : null}`} data-date={monDate.getTime()}>
+                                                                    {mon}
+                                                                </button>
+                                                            </td>
+                                                        );
+                                                        
+                                                    })}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            );
+                        } else if (view === "Years") {
+                            const thisYear = parseInt(year);
+                            let start = thisYear - 100;
+                            let years = [];
+
+                            for (; start <= thisYear + 100; start++) {
+                                years.push(start);
+                            }
+
+                            return (
+                                <div className="date-picker date-picker-years">
+                                    <ul className="years-list">
+                                        {years.map(ele => (
+                                            <li onClick={chooseYear} className={ele === thisYear ? "active-btn" : null}>{ele}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            );
+                        }
+                    })()}
+                </div>
+                <div className="modal__btns">
+                    <button className="btn btn--color-green btn--no-bg btn--sm" onClick={toggleModal}>Cancel</button>
+                </div>
+            </Modal>
         </Fragment>
     )
 }

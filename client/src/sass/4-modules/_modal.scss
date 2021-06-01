@@ -43,6 +43,22 @@
     &__header {
         padding: 25px 30px;
         border-bottom: 1px solid #E0E0E0;
+        display: flex;
+        align-items: center;
+    }
+
+    &__close-btn {
+        padding-right: 28px;
+
+        i {
+            cursor: pointer;
+            font-size: 18px;
+            color: $textGray;
+
+            &:hover {
+                color: $mainColor;
+            }
+        }
     }
 
     &__title {
