@@ -40,7 +40,7 @@ function CategoriesForm(props) {
 
     const saveCategory = () => {
         if (isEdit) {
-            const category = props.category;
+            const category = props.item;
             category.name = name;
             category.type = type;
             
@@ -114,7 +114,7 @@ function CategoriesForm(props) {
                         </div>
                     </div>
 
-                    <InputField label="Category Name" name="name" placeholder="Gas, Salary, ect." saveValue={setName} />
+                    <InputField label="Category Name" name="name" placeholder="Gas, Salary, ect." defaultValue={name} saveValue={setName} />
                 </form>
                 
                 <div className="modal__btns">

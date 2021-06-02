@@ -12,12 +12,12 @@ export class Categories extends Component {
     }
     componentDidUpdate(prevProps) {
         if(!this.props.isAuthenticated) {
-            this.props.history.push('/Login');
+            this.props.history.push('/');
         }
     }
     componentDidMount() {
         if(!this.props.isAuthenticated) {
-            this.props.history.push('/Login');
+            this.props.history.push('/');
         }
     }
     componentWillUnmount() {

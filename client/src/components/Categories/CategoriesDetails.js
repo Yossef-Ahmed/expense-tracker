@@ -56,7 +56,7 @@ export class CategoriesDetails extends Component {
                                     <span className="card-title">Category details</span>
                                     <div className="card-buttons">
                                         <button className="card-btn card-btn-danger" onClick={this.deleteOnClick}>Delete</button>
-                                        <CategoriesForm formType="Edit" />
+                                        <CategoriesForm formMode="Edit" />
                                     </div>
                                 </div>
                                 <div className="card-body">
