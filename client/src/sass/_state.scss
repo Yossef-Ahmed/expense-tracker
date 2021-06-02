@@ -1,22 +1,6 @@
-// Colors
 .expense {
-    color: #e51c23 !important;
+    color: $redColor !important;
 }
 .income {
-    color: #039be5 !important;
-}
-
-// Fade Animation
-@keyframes FadeInOut {
-    from {
-        opacity: 0;
-    }    
-    to {
-        opacity: 1;
-    }
-}
-.fadeOut {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s linear 300ms, opacity 300ms;
+    color: $blueColor !important;
 }

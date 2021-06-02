@@ -13,8 +13,8 @@ const swaggerOptions = {
         },
     },
     apis: [
-        './routes/api/auth/index.js'
-        // './routes/api*.js'
+        './routes/api/auth/index.js',
+        './routes/api/user/categories/index.js'
     ]
 }
 
@@ -35,7 +35,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerOption
 
 app.use('/api/auth', require('./routes/api/auth/index'));
 app.use('/api/transactions', require('./routes/api/transactions'));
-app.use('/api/categories', require('./routes/api/categories'));
+app.use('/api/user/categories', require('./routes/api/user/categories/index'));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
