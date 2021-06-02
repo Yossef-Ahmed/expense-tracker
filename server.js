@@ -14,7 +14,8 @@ const swaggerOptions = {
     },
     apis: [
         './routes/api/auth/index.js',
-        './routes/api/user/categories/index.js'
+        './routes/api/user/categories/index.js',
+        './routes/api/transactions/index.js'
     ]
 }
 
@@ -34,7 +35,7 @@ const PORT = process.env.PORT || 5000;
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerOptions)));
 
 app.use('/api/auth', require('./routes/api/auth/index'));
-app.use('/api/transactions', require('./routes/api/transactions'));
+app.use('/api/transactions', require('./routes/api/transactions/index'));
 app.use('/api/user/categories', require('./routes/api/user/categories/index'));
 
 if (process.env.NODE_ENV === 'production') {
