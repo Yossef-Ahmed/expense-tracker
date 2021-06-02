@@ -1,40 +1,38 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+import {closeCategoryDetails} from '../actions/category/categoryDetails';
+
 import CategoriesCard from '../components/Categories/CategoriesCard';
 import CategoriesDetails from '../components/Categories/CategoriesDetails';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {unloadCategories} from '../actions/categoryActions';
 
-export class Categories extends Component {
-    static propTypes = {
-        isAuthenticated: PropTypes.bool.isRequired,
-        unloadCategories: PropTypes.func.isRequired
-    }
-    componentDidUpdate(prevProps) {
-        if(!this.props.isAuthenticated) {
-            this.props.history.push('/');
+export const Categories = (props) => {
+    useEffect(() => {
+        if(!props.isAuthenticated) {
+            props.history.push('/');
         }
-    }
-    componentDidMount() {
-        if(!this.props.isAuthenticated) {
-            this.props.history.push('/');
-        }
-    }
-    componentWillUnmount() {
-        this.props.unloadCategories();
-    }
-    render() {
-        return (
-            <div className="card-page categories-page">
-                <CategoriesCard />
-                <CategoriesDetails />
-            </div>
-        )
-    }
+    }, [props.isAuthenticated]);
+
+    useEffect(() => {
+        return () => props.closeCategoryDetails();
+    });
+
+    return (
+        <div className="card-page">
+            <CategoriesCard />
+            <CategoriesDetails />
+        </div>
+    )
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
+Categories.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    closeCategoryDetails: PropTypes.func.isRequired
+}
 
-export default connect(mapStateToProps, {unloadCategories})(Categories);
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+
+export default connect(mapStateToProps, {closeCategoryDetails})(Categories)

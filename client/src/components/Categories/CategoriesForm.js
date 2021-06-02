@@ -2,7 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {createCategory, updateCategory} from '../../actions/categoryActions';
+import {createCategory} from '../../actions/category/createCategory';
+import {updateCategory} from '../../actions/category/updateCategory';
 
 import Modal from '../Reuseable/Modal'
 import InputField from '../Reuseable/InputField';

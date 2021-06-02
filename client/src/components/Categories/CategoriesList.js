@@ -1,52 +1,55 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import {getCategory} from '../../actions/categoryActions';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-export class CategoriesList extends Component {
-    static propTypes = {
-        getCategory: PropTypes.func.isRequired,
-        saveValue: PropTypes.func,
-        component: PropTypes.string,
-        categories: PropTypes.array.isRequired,
-        categoriesList: PropTypes.array.isRequired
-    }
-    onClick = e => {
+import {getCategoryDetails} from '../../actions/category/categoryDetails';
+
+export const CategoriesList = (props) => {
+    const handleItemClick = e => {
         let id;
-        if (e.target.classList.contains('card-item-icon') || e.target.classList.contains('card-item-name')) {
+
+        if (e.target.classList.contains('category-icon') || e.target.classList.contains('card__item-name')) {
             id = e.target.parentElement.id;
         } else if (e.target.classList.contains('fas')) {
             id = e.target.parentElement.parentElement.id;
         } else {
             id = e.target.id;
         }
-        if (this.props.component === "select") {
-            this.props.saveValue(this.props.categories.find(cat => cat._id === id));
+
+        if (props.component === "select") {
+            props.saveValue(props.categories.find(cat => cat._id === id));
         } else {
-            this.props.getCategory(this.props.categories.find(cat => cat._id === id));
+            props.getCategoryDetails(props.categories.find(cat => cat._id === id));
         }
     }
-    render() {
-        const categories = this.props.categoriesList;
-        return (
-            <div className="card-list">
-                {categories.map(cat => {
-                    return (
-                        <div className="card-item" id={cat._id} onClick={this.onClick} key={cat._id}>
-                            <div className={`card-item-icon ${cat.type === '-' ? 'expense' : 'income'}`}>
-                                <i className={`fas fa-${cat.type === '-' ? 'minus' : 'plus'}`}></i>
-                            </div>
-                            <div className="card-item-name">{cat.name}</div>
+
+    return (
+        <div className="card__list">
+            {props.categoriesList.map(cat => {
+                return (
+                    <div className="card__item" id={cat._id} onClick={handleItemClick} key={cat._id}>
+                        <div className={`category-icon category-icon--big ${cat.type === '-' ? 'expense' : 'income'}`}>
+                            <i className={`fas fa-${cat.type === '-' ? 'minus' : 'plus'}`}></i>
                         </div>
-                    );
-                })}
-            </div>
-        )
-    }
+
+                        <div className="card__item-name">{cat.name}</div>
+                    </div>
+                );
+            })}
+        </div>
+    )
 }
 
-const mapStateToProps = state => ({
-    categories: state.categories.items
-});
+CategoriesList.propTypes = {
+    getCategoryDetails: PropTypes.func.isRequired,
+    saveValue: PropTypes.func,
+    component: PropTypes.string,
+    categories: PropTypes.array.isRequired,
+    categoriesList: PropTypes.array.isRequired
+}
 
-export default connect(mapStateToProps, {getCategory})(CategoriesList);
+const mapStateToProps = (state) => ({
+    categories: state.categories.items
+})
+
+export default connect(mapStateToProps, {getCategoryDetails})(CategoriesList)

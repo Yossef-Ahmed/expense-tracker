@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {setTokenAndConfig} from '../requestConfig';
 import {loading, loaded} from '../loaderActions';
-import {getCategories} from '../categoryActions';
+import {getCategories} from '../category/getCategories';
 import {
     USER_LOADED,
     AUTH_ERROR

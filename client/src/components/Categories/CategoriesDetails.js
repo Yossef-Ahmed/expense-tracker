@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {closeDetailsCard, deleteCategory} from '../../actions/categoryActions';
+import {deleteCategory} from '../../actions/category/deleteCategory';
+import {closeCategoryDetails} from '../../actions/category/categoryDetails';
 import {openConfirm} from '../../actions/confirmActions';
 import CategoriesForm from './CategoriesForm';
 
 export class CategoriesDetails extends Component {
     static propTypes = {
         deleteCategory: PropTypes.func.isRequired,
-        closeDetailsCard: PropTypes.func.isRequired,
+        closeCategoryDetails: PropTypes.func.isRequired,
         openConfirm: PropTypes.func.isRequired,
         item: PropTypes.object,
         confirm: PropTypes.bool.isRequired
@@ -22,9 +23,9 @@ export class CategoriesDetails extends Component {
     closeOnClick = e => {
         if (window.matchMedia('screen and (max-width: 800px)').matches) {
             e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add('fadeOut');
-            setTimeout(() => this.props.closeDetailsCard(), 200);
+            setTimeout(() => this.props.closeCategoryDetails(), 200);
         } else {
-            this.props.closeDetailsCard();
+            this.props.closeCategoryDetails();
         }
     }
     deleteOnClick = e => {
@@ -34,7 +35,7 @@ export class CategoriesDetails extends Component {
         if (e.target.classList.contains('details-modal-container')) {
             if (window.matchMedia('screen and (max-width: 800px)').matches) {
                 e.target.classList.add('fadeOut');
-                setTimeout(() => this.props.closeDetailsCard(), 200);
+                setTimeout(() => this.props.closeCategoryDetails(), 200);
             } 
         }
     }
@@ -90,4 +91,4 @@ const mapStateToProps = state => ({
     confirm: state.confirm.answer
 });
 
-export default connect(mapStateToProps, {closeDetailsCard, deleteCategory, openConfirm})(CategoriesDetails);
+export default connect(mapStateToProps, {closeCategoryDetails, deleteCategory, openConfirm})(CategoriesDetails);

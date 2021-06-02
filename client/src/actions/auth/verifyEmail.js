@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {setConfig} from '../requestConfig';
 import {loading, loaded} from '../loaderActions';
-import {getCategories} from '../categoryActions';
+import {getCategories} from '../category/getCategories';
 import {returnAlert} from './alert';
 import {returnMainAlert} from '../mainAlertActions';
 import {closeEmailVerificationModal} from './toggleEmailVerification';

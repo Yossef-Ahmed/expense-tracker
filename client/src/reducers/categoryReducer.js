@@ -4,8 +4,7 @@ import {
     CREATE_CATEGORY,
     UPDATE_CATEGORY,
     DELETE_CATEGORY,
-    CLOSE_CATEGORY_DETAILS,
-    UNLOAD_CATEGORIES
+    CLOSE_CATEGORY_DETAILS
 } from '../actions/types';
 
 const initialState = {
@@ -26,7 +25,6 @@ export default function(state = initialState, action) {
                 item: action.payload
             }
         case CLOSE_CATEGORY_DETAILS:
-        case UNLOAD_CATEGORIES:
             return {
                 ...state,
                 item: null
