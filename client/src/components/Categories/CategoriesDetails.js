@@ -1,94 +1,93 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
 import {deleteCategory} from '../../actions/category/deleteCategory';
 import {closeCategoryDetails} from '../../actions/category/categoryDetails';
 import {openConfirm} from '../../actions/confirmActions';
-import CategoriesForm from './CategoriesForm';
 
-export class CategoriesDetails extends Component {
-    static propTypes = {
-        deleteCategory: PropTypes.func.isRequired,
-        closeCategoryDetails: PropTypes.func.isRequired,
-        openConfirm: PropTypes.func.isRequired,
-        item: PropTypes.object,
-        confirm: PropTypes.bool.isRequired
+import CategoriesForm from './CategoriesForm';
+import Modal from '../Reuseable/Modal'
+
+export const CategoriesDetails = (props) => {
+    const [modal, setModal] = useState(false);
+    const [catType, setCatType] = useState('');
+    const [catName, setCatName] = useState('');
+
+    const toggleModal = () => {
+        setModal((prevValue) => {
+            if (prevValue) {
+                setTimeout(() => props.closeCategoryDetails(), 500);
+            }
+            return !prevValue;
+        });
     }
-    componentDidUpdate() {
-        if (this.props.confirm) {
-            document.querySelector('.details-modal-container').classList.add('fadeOut');
-            setTimeout(() => this.props.deleteCategory(this.props.item._id), 200);
+
+    const handleDelete = e => {
+        props.openConfirm();
+    }
+
+    useEffect(() => {
+        if (props.confirm && props.item) {
+            props.deleteCategory(props.item._id);
+            setTimeout(() => props.closeCategoryDetails(), 500);
+            setModal(false);
         }
-    }
-    closeOnClick = e => {
-        if (window.matchMedia('screen and (max-width: 800px)').matches) {
-            e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add('fadeOut');
-            setTimeout(() => this.props.closeCategoryDetails(), 200);
+    }, [props.confirm, props.deleteCategory, props, setModal, props.closeCategoryDetails]);
+
+    useEffect(() => {
+        if (props.item) {
+            setCatType(props.item.type)
+            setCatName(props.item.name)
+            setModal(true)
         } else {
-            this.props.closeCategoryDetails();
+            setModal(false)
         }
-    }
-    deleteOnClick = e => {
-        this.props.openConfirm();
-    }
-    handleClickOutside = e => {
-        if (e.target.classList.contains('details-modal-container')) {
-            if (window.matchMedia('screen and (max-width: 800px)').matches) {
-                e.target.classList.add('fadeOut');
-                setTimeout(() => this.props.closeCategoryDetails(), 200);
-            } 
-        }
-    }
-    render() {
-        const category = this.props.item;
-        // Check if it's a mobile screen
-        const isMobile = window.matchMedia('screen and (max-width: 800px)').matches ? true : false;
-        if (category) {
-            const categoryType = category.type === '-' ? 'expense' : 'income';
-            return (
-                <div className="details-modal-container" onClick={isMobile ? this.handleClickOutside : null}>
-                    <div className="details-modal">
-                        <div className="card-container">
-                            <div className="card">
-                                <div className="card-header">
-                                    <div className="card-close">
-                                        <i onClick={this.closeOnClick} className="fas fa-times"></i>
-                                    </div>
-                                    <span className="card-title">Category details</span>
-                                    <div className="card-buttons">
-                                        <button className="card-btn card-btn-danger" onClick={this.deleteOnClick}>Delete</button>
-                                        <CategoriesForm formMode="Edit" />
-                                    </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className="card-row">
-                                        <div className={`card-icon ${categoryType}`}>
-                                            <i className={`fas fa-${category.type === '-' ? 'minus' : 'plus'}`}></i>
-                                        </div>
-                                        <div className="card-info">
-                                            <h3>{category.name}</h3>
-                                            <span className={`card-info-tag ${categoryType}`}>{categoryType}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-buttons details-modal-buttons">
-                                    <button className="btn btn-secondary-red" onClick={this.deleteOnClick}>Delete</button>
-                                    <CategoriesForm formType="Edit" screen="Mobile" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    }, [props.item, setCatType, setCatName, setModal]);
+
+    const categoryType = catType === '-' ? 'expense' : 'income';
+
+    return (
+        <Modal isOpen={modal} toggleModal={toggleModal} modalCustomClass={'modal-details modal--wide'}>
+            <div className="modal__header modal-details__header">
+                <h2 className="modal__title modal__title--sm">Category details</h2>
+
+                <div className="modal__btns modal__btns--no-padding not-sm-show">
+                    <button className="btn btn--sm btn--color-red btn--no-bg btn--modal-details" onClick={handleDelete}>Delete</button>
+                    <CategoriesForm formMode="Edit" />
                 </div>
-            )
-        } else {
-            return <Fragment></Fragment>;
-        }
-    }
+            </div>
+
+            <div className="modal__body">
+                <div className={`category-icon category-icon--bigger ${categoryType}`}>
+                    <i className={`fas fa-${catType === '-' ? 'minus' : 'plus'}`}></i>
+                </div>
+
+                <div className="modal-details__info">
+                    <h3 className="category-name">{catName}</h3>
+                    <span className={`modal-details__cat-type ${categoryType}`}>{categoryType}</span>
+                </div>
+            </div>
+
+            <div className="modal__btns sm-show">
+                <button className="btn btn--gray-red btn--sm" onClick={handleDelete}>Delete</button>
+                <CategoriesForm formMode="Edit" screen="Mobile" />
+            </div>
+        </Modal>
+    )
 }
 
-const mapStateToProps = state => ({
+CategoriesDetails.propTypes = {
+    deleteCategory: PropTypes.func.isRequired,
+    closeCategoryDetails: PropTypes.func.isRequired,
+    openConfirm: PropTypes.func.isRequired,
+    item: PropTypes.object.isRequired,
+    confirm: PropTypes.bool.isRequired
+}
+
+const mapStateToProps = (state) => ({
     item: state.categories.item,
     confirm: state.confirm.answer
-});
+})
 
-export default connect(mapStateToProps, {closeCategoryDetails, deleteCategory, openConfirm})(CategoriesDetails);
+export default connect(mapStateToProps, {deleteCategory, closeCategoryDetails, openConfirm})(CategoriesDetails)

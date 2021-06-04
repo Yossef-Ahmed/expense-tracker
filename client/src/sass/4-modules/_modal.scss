@@ -63,12 +63,20 @@
 
     &__title {
         font-size: 34px;
+
+        &--sm {
+            font-size: 30px;
+        }
     }
 
     &__btns {
         display: flex;
         justify-content: flex-end;
         padding: 0 36px 20px 0;
+
+        &--no-padding {
+            padding: 0;
+        }
         
         .btn:first-of-type {
             margin-right: 16px;

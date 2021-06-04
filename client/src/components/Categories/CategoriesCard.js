@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import CategoriesList from './CategoriesList';
-import {NavLink} from 'react-router-dom';
 
 export const CategoriesCard = (props) => {
     const [catsType, setCatsType] = useState('-');

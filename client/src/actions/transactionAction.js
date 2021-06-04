@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {returnMainAlert} from './mainAlertActions';
 import {loading, loaded} from './loaderActions';
-import {setConfirm} from './confirmActions';
+import {closeConfirm} from './confirmActions';
 import {setTokenAndConfig} from './requestConfig';
 import {
     GET_TRANSACTIONS,
@@ -108,7 +108,7 @@ export const deleteTransaction = tranId => (dispatch, getState) => {
     // Send the request
     axios.delete(`/api/transactions/${tranId}`, setTokenAndConfig(getState))
         .then(res => {
-            dispatch(setConfirm());
+            dispatch(closeConfirm(false));
             dispatch(returnMainAlert(res.data.msg, 'Success!', 'success'));
             dispatch({
                 type: DELETE_TRANSACTION,

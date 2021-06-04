@@ -37,8 +37,7 @@ export default function(state = initialState, action) {
         case UPDATE_CATEGORY:
             return {
                 ...state,
-                items: [...state.items.filter(item => item._id !== action.payload._id), action.payload],
-                item: null
+                items: [...state.items.filter(item => item._id !== action.payload._id), action.payload]
             }
         case DELETE_CATEGORY:
             return {

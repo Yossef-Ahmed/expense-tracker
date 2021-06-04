@@ -1,4 +1,4 @@
-import {OPEN_CONFIRM, CLOSE_CONFIRM, SET_CONFIRM} from '../actions/types';
+import {OPEN_CONFIRM, CLOSE_CONFIRM} from '../actions/types';
 
 const initialState = {
     isOpen: false,
@@ -16,11 +16,6 @@ export default function(state = initialState, action) {
             return {
                 isOpen: false,
                 answer: action.payload
-            }
-        case SET_CONFIRM:
-            return {
-                ...state,
-                answer: false
             }
         default:
             return state;

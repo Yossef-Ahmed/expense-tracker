@@ -2,6 +2,7 @@ import axios from 'axios';
 import {returnMainAlert} from '../mainAlertActions';
 import {loading, loaded} from '../loaderActions';
 import {setTokenAndConfig} from '../requestConfig';
+import {closeCategoryDetails} from './categoryDetails';
 import {UPDATE_CATEGORY} from '../types';
 
 export const updateCategory = item => (dispatch, getState) => {
@@ -12,6 +13,7 @@ export const updateCategory = item => (dispatch, getState) => {
     axios
         .patch(`/api/user/categories/${item._id}`, body, setTokenAndConfig(getState))
         .then(res => {
+            dispatch(closeCategoryDetails());
             dispatch(returnMainAlert('success', res.data.msg));
             dispatch({
                 type: UPDATE_CATEGORY,

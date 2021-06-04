@@ -41,12 +41,24 @@
         }
     }
 
+    &--red {
+        background-color: $redColor;
+    }
+
+    &--gray-red {
+        color: $redColor;
+    }
+
     &--gray {
         color: $mainColor;
     }
 
     &--color-green {
         color: $greenColor;
+    }
+
+    &--color-red {
+        color: $redColor;
     }
 
     &--no-bg {
@@ -67,6 +79,14 @@
         color: rgba(0, 0, 0, 0.26) !important;
         border-color: transparent;
         cursor: default;
+    }
+
+    &--modal-details {
+        text-transform: uppercase;
+        font-weight: 500;
+        padding: 9px 25px;
+        min-width: 80px;
+        margin-right: 0;
     }
 }
 

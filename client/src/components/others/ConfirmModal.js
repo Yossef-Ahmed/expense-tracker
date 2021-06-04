@@ -1,47 +1,53 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {closeConfirm} from '../../actions/confirmActions';
-import {CSSTransition} from 'react-transition-group';
+import React, {useState, useEffect} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-export class ConfirmModal extends Component {
-    static propTypes = {
-        closeConfirm: PropTypes.func.isRequired,
-        isOpen: PropTypes.bool.isRequired
+import {closeConfirm} from '../../actions/confirmActions';
+import Modal from '../Reuseable/Modal'
+
+export const ConfirmModal = (props) => {
+    const [modal, setModal] = useState(false);
+
+    const closeModal = (answer) => {
+        setModal(false);
+        setTimeout(() => props.closeConfirm(answer), 500);
     }
-    closeOnClick = e => {
-        const answer = e.target.dataset.answer === 'false' ? false : true;
-        this.props.closeConfirm(answer);
-    }
-    handleClickOutside = e => {
-        if (e.target.classList.contains('modal-container') && e.target.firstElementChild.classList.contains('modal-confirm')) {
-            this.props.closeConfirm(false);
+
+    useEffect(() => {
+        if (props.isOpen) {
+            setModal(true);
         }
-    }
-    render() {
-        return (
-            <CSSTransition in={this.props.isOpen} timeout={400} unmountOnExit classNames="modal-fade">
-                <div className="modal-container" onClick={this.handleClickOutside}>
-                    <div className="modal modal-confirm">
-                        <div className="modal-header">
-                            <h3>Confirm Deletion</h3>
-                        </div>
-                        <div className="modal-body">
-                            <p className="modal-body-msg">Delete this transaction?</p>
-                            <div className="modal-buttons">
-                                <button className="btn btn-secondary" onClick={this.closeOnClick} data-answer={false}>No</button>
-                                <button className="btn btn-danger" onClick={this.closeOnClick} data-answer={true}>Yes</button>
-                            </div>
-                        </div>
-                    </div>
+    }, [props.isOpen, setModal]);
+
+    return (
+        <Modal isOpen={modal} toggleModal={() => closeModal(false)} modalCustomClass={'modal-confirm'} containerClass={'modal-confirm-container'}>
+            <div className="modal__header">
+                <h2 className="modal__title modal__title--sm">Confirm Deletion</h2>
+            </div>
+
+            <div className="modal__body">
+                <p className="modal__body__msg">Are you sure that you want to delete this?</p>
+
+                <div className="modal__btns">
+                    <button className="btn btn--gray" onClick={() => closeModal(false)} data-answer={false}>No</button>
+                    <button className="btn btn--red" onClick={() => closeModal(true)} data-answer={true}>Yes</button>
                 </div>
-            </CSSTransition>
-        )
-    }
+            </div>
+        </Modal>
+    )
 }
 
-const mapStateToProps = state => ({
-    isOpen: state.confirm.isOpen
-});
+ConfirmModal.propTypes = {
+    closeConfirm: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired
+}
 
-export default connect(mapStateToProps, {closeConfirm})(ConfirmModal);
+const mapStateToProps = (state) => ({
+    isOpen: state.confirm.isOpen
+})
+
+const mapDispatchToProps = {
+    closeConfirm
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConfirmModal)

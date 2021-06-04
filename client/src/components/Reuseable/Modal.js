@@ -6,6 +6,7 @@ import BackBtn from '../../images/back.png'
 
 function Modal(props) {
     const modalCustomClass = props.modalCustomClass ? props.modalCustomClass : '';
+    const containerClass = props.containerClass ? props.containerClass : '';
 
     const handleClickOutside = e => {
         const firstElementAfterModalContainer = modalCustomClass !== '' ? modalCustomClass.split(" ")[0] : 'modal';
@@ -16,7 +17,7 @@ function Modal(props) {
 
     return (
         <CSSTransition in={props.isOpen} timeout={400} unmountOnExit classNames="modal-fade">
-            <div className="modal-container" onClick={handleClickOutside}>
+            <div className={`modal-container ${containerClass}`} onClick={handleClickOutside}>
                 <div className={`modal ${modalCustomClass}`}>
                     <img className="mobile-back-btn" onClick={props.toggleModal} src={BackBtn} alt="Left Arrow"/>
                     {props.children}
@@ -29,7 +30,8 @@ function Modal(props) {
 Modal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     toggleModal: PropTypes.func.isRequired,
-    modalCustomClass: PropTypes.string
+    modalCustomClass: PropTypes.string,
+    containerClass: PropTypes.string
 }
 
 export default Modal

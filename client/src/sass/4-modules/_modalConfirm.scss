@@ -1,0 +1,12 @@
+.modal-confirm {
+    min-height: unset;
+    width: 496px;
+
+    &-container {
+        z-index: 100;
+    }
+
+    .modal__body__msg {
+        padding: 17px 30px 24px;
+    }
+}

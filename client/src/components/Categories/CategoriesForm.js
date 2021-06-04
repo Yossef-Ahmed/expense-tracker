@@ -58,7 +58,7 @@ function CategoriesForm(props) {
     }
 
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit && props.item) {
             const item = props.item;
 
             setName(item.name);
@@ -83,7 +83,11 @@ function CategoriesForm(props) {
     return (
         <Fragment>
             {isEdit ? (
-                <button className="card-btn card-btn-success" onClick={toggleModal}>Edit</button>
+                props.screen === 'Mobile' ? (
+                    <button className="btn btn--sm btn--green " onClick={toggleModal}>Edit</button>
+                ) : (
+                    <button className="btn btn--sm btn--color-green btn--no-bg btn--modal-details" onClick={toggleModal}>Edit</button>
+                )
             ) : (
                 <li onClick={toggleAddModal}>
                     <i className="fas fa-plus"></i>

@@ -15,7 +15,6 @@ export const LOADED = 'LOADED';
 
 export const OPEN_CONFIRM = 'OPEN_CONFIRM';
 export const CLOSE_CONFIRM = 'CLOSE_CONFIRM';
-export const SET_CONFIRM = 'SET_CONFIRM';
 
 export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 export const CHANGE_CURR_MONTH = 'CHANGE_CURR_MONTH';
