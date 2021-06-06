@@ -2,7 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 
-import {createTransaction, updateTransaction} from '../../actions/transactionAction';
+import {updateTransaction} from '../../actions/transaction/updateTransaction';
+import {createTransaction} from '../../actions/transaction/createTransaction';
 import {addComma, removeNonNumericCharsFromString, leave2NumbersAfterDot, isAmountFloat} from '../../utils/index';
 
 import Modal from '../Reuseable/Modal'

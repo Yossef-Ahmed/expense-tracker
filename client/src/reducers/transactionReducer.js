@@ -52,27 +52,21 @@ export default function(state = initialState, action) {
                 return state;
             }
         case UPDATE_TRANSACTION:
-            const tranDate2 = new Date(parseInt(action.payload.date));
-            let start2 = new Date(new Date(state.start).setDate(state.start.getDate() - 1));
-            let end2 = new Date(state.end);
-            if ((state.end && tranDate2 > start2 && tranDate2 < end2) || (!state.end && tranDate2 > start2)) {
+            if ((state.end && tranDate > start && tranDate < end) || (!state.end && tranDate > start)) {
                 return {
                     ...state,
-                    items: [...state.items.filter(item => item._id !== action.payload._id), action.payload],
-                    item: null
+                    items: [...state.items.filter(item => item._id !== action.payload._id), action.payload]
                 }
             } else {
                 return {
                     ...state,
-                    items: state.items.filter(item => item._id !== action.payload._id),
-                    item: null
+                    items: state.items.filter(item => item._id !== action.payload._id)
                 }
             }
         case DELETE_TRANSACTION:
             return {
                 ...state,
-                items: state.items.filter(item => item._id !== action.payload),
-                item: null
+                items: state.items.filter(item => item._id !== action.payload)
             }
         case UNLOAD_TRANSACTIONS:
             return initialState;

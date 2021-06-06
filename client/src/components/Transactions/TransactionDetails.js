@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import TransactionForm from './TransactionForm';
-import {closeDetailsCard, deleteTransaction} from '../../actions/transactionAction';
+import {deleteTransaction} from '../../actions/transaction/deleteTransaction';
+import {closeTransactionDetails} from '../../actions/transaction/transactionDetails';
 import {openConfirm} from '../../actions/confirmActions';
 import {addComma, getDayName, formatDate} from '../../utils/index';
 
@@ -22,9 +23,9 @@ export class TransactionDetails extends Component {
         if (e.target.tagName === "I") {
             if (window.matchMedia('screen and (max-width: 800px)').matches) {
                 e.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add('fadeOut');
-                setTimeout(() => this.props.closeDetailsCard(), 200);
+                setTimeout(() => this.props.closeTransactionDetails(), 200);
             } else {
-                this.props.closeDetailsCard();
+                this.props.closeTransactionDetails();
             }
         }
     }
@@ -35,7 +36,7 @@ export class TransactionDetails extends Component {
         if (e.target.classList.contains('details-modal-container')) {
             if (window.matchMedia('screen and (max-width: 800px)').matches) {
                 e.target.classList.add('fadeOut');
-                setTimeout(() => this.props.closeDetailsCard(), 200);
+                setTimeout(() => this.props.closeTransactionDetails(), 200);
             } 
         }
     }
@@ -101,4 +102,4 @@ const mapStateToProps = state => ({
     confirm: state.confirm.answer
 });
 
-export default connect(mapStateToProps, {closeDetailsCard, deleteTransaction, openConfirm})(TransactionDetails);
+export default connect(mapStateToProps, {closeTransactionDetails, deleteTransaction, openConfirm})(TransactionDetails);

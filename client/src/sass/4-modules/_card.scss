@@ -36,13 +36,9 @@
     }
 
     &__header {
-        padding-top: 10px;
         transition: all 0.5s ease 0s;
         border-bottom: 1px solid #e0e0e0;
-        position: sticky;
-        top: 64px;
         background-color: #fff;
-        z-index: 1;
     }
 
     &__tabs {
@@ -59,7 +55,7 @@
         text-transform: uppercase;
 
         &.active span {
-            color: #2db84c;
+            color: $greenColor;
         }
 
         &.prevTab {
@@ -69,14 +65,14 @@
         &.nextTab {
             margin-right: auto;
         }
-
+        
         &-line {
             bottom: 0;
             left: 167px;
             width: 33.33%;
             height: 2px;
-            background-color: #2db84c;
-            border-color: #2db84c;
+            background-color: $greenColor;
+            border-color: $greenColor;
             position: absolute;
             transition: .3s cubic-bezier(.25,.8,.5,1);
         }
@@ -84,12 +80,34 @@
         span {
             line-height: 16px;
             opacity: 1;
-            color: rgba(0,0,0,.54);
+            color: $mainColor;
             font-weight: 500;
             padding: 15px 24px;
             display: block;
             white-space: nowrap;
             cursor: pointer;
+        }
+    }
+
+    &__slider {
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #E0E0E0;
+        color: $mainColor;
+
+        &__btn {
+            cursor: pointer;
+            transition: .2s ease-in-out;
+
+            &:hover {
+                opacity: .6;
+            }
+        }
+
+        &__curr-slide {
+
         }
     }
     
@@ -129,20 +147,18 @@
             color: $mainColor;
         }
     }
+
+    &__bar {
+        background: #f4f4f4;
+        width: 100%;
+        height: 32px;
+    }
 }
 
 @media only screen and (max-width: 600px) {
     .card {
         &__header {
             top: 59px;
-        }
-        &__tab {
-            font-size: 12px;
-
-            span {
-                padding: 15px 8px;
-                white-space: unset;
-            }
         }
     }
 }

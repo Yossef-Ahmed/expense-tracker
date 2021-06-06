@@ -1,0 +1,24 @@
+.transactions-states {
+    padding: 30px 20px;
+
+    &__item {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        color: $mainColor;
+    }
+
+    &__total {
+        font-size: 18px;
+        align-items: flex-end;
+        flex-direction: column;
+        margin-bottom: unset;
+    }
+
+    &__bar {
+        margin-bottom: 15px;
+        width: 114px;
+        height: 3px;
+        background-color: $mainColor;
+    }
+}
