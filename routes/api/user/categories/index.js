@@ -18,19 +18,6 @@ Router.get("/", auth, require('./get-categories'));
 
 /**
  * @swagger
- * /api/user/categories/:id:
- *  get:
- *      description: Get a user's category details
- *      produces:
- *          - application/json
- *      responses:
- *          '200':
- *              description: Got The Category Details Successfully
- */
-Router.get("/id", auth, require('./get-category'));
-
-/**
- * @swagger
  * /api/user/categories:
  *  post:
  *      description: Create a new category for this user

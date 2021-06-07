@@ -52,7 +52,7 @@ const TransactionForm = (props) => {
     const isEdit = props.formMode === 'Edit' ? true : false;
 
     useEffect(() => {
-        if (isEdit) {
+        if (isEdit && props.item) {
             const item = props.item;
 
             setAmount(item.amount.toString());
@@ -106,7 +106,11 @@ const TransactionForm = (props) => {
     return (
         <Fragment>
             {isEdit ? (
-                <button className="card-btn card-btn-success" onClick={toggleModal}>Edit</button>
+                props.screen === 'Mobile' ? (
+                    <button className="btn btn--sm btn--green " onClick={toggleModal}>Edit</button>
+                ) : (
+                    <button className="btn btn--sm btn--color-green btn--no-bg btn--modal-details" onClick={toggleModal}>Edit</button>
+                )
             ) : (
                 <li onClick={toggleAddModal}>
                     <i className="fas fa-plus"></i>
@@ -130,7 +134,7 @@ const TransactionForm = (props) => {
 
                     <SelectDate saveValue={(name, val) => setDate(val)} date={date} />
 
-                    <InputField label="Note" name="note" placeholder="Write any note..." saveValue={setNote} />
+                    <InputField label="Note" name="note" placeholder="Write any note..." defaultValue={note} saveValue={setNote} />
                 </form>
 
                 <div className="modal__btns">

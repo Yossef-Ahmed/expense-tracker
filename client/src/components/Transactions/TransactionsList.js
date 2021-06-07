@@ -9,11 +9,11 @@ export const TransactionsList = (props) => {
     const openTransactionDetails = e => {
         let id;
 
-        if (e.target.classList.contains('category-icon') || e.target.classList.contains('transaction-list__item__data')) {
+        if (e.target.classList.contains('transactions-list__amount') || e.target.classList.contains('transactions-list__item__data')) {
             id = e.target.parentElement.id;
-        } else if (e.target.classList.contains('fas') || e.target.classList.contains('primary-text') || e.target.classList.contains('transaction-note')) {
+        } else if (e.target.classList.contains('primary-text') || e.target.classList.contains('category-icon')) {
             id = e.target.parentElement.parentElement.id;
-        } else if (e.target.classList.contains('transaction-list__item__category') || e.target.classList.contains('transaction-list__amount')) {
+        } else if (e.target.classList.contains('fas') || e.target.classList.contains('transactions-list__item__note') || e.target.classList.contains('transactions-list__item__category')) {
             id = e.target.parentElement.parentElement.parentElement.id;
         } else {
             id = e.target.id;

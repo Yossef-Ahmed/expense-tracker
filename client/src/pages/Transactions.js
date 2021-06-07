@@ -2,14 +2,14 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import {unloadTransactions} from '../actions/transaction/unloadTransactions';
+import {closeTransactionDetails} from '../actions/transaction/transactionDetails';
 
 import TransactionCard from '../components/Transactions/TransactionCard';
 import TransactionDetails from '../components/Transactions/TransactionDetails';
 
 export const Transactions = (props) => {
     useEffect(() => {
-        return () => props.unloadTransactions();
+        return () => props.closeTransactionDetails();
     });
 
     useEffect(() => {
@@ -28,11 +28,11 @@ export const Transactions = (props) => {
 
 Transactions.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    unloadTransactions: PropTypes.func.isRequired
+    closeTransactionDetails: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, {unloadTransactions})(Transactions)
+export default connect(mapStateToProps, {closeTransactionDetails})(Transactions)

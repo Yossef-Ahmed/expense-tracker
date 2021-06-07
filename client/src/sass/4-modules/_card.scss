@@ -39,6 +39,7 @@
         transition: all 0.5s ease 0s;
         border-bottom: 1px solid #e0e0e0;
         background-color: #fff;
+        position: relative;
     }
 
     &__tabs {
@@ -104,10 +105,6 @@
             &:hover {
                 opacity: .6;
             }
-        }
-
-        &__curr-slide {
-
         }
     }
     

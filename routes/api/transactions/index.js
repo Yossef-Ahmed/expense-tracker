@@ -26,21 +26,6 @@ Router.post("/", auth, require('./get-transactions'));
 
 /**
  * @swagger
- * /api/transactions/:tid:
- *  get:
- *      description: Get a transaction details for this user
- *      produces:
- *          - application/json
- *      responses:
- *          '200':
- *              description: Got the transaction details successfully
- *          '400':
- *              description: Couldn't find the transaction
- */
-Router.get("/:tid", auth, require('./get-transaction'));
-
-/**
- * @swagger
  * /api/transactions/create:
  *  post:
  *      description: Create a new transaction for this user
