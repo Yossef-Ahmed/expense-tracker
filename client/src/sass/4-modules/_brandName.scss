@@ -1,9 +1,11 @@
 .brand-name {
     font-size: 24px;
     font-weight: bold;
+
     a {
         color: $mainColor;
         transition: .3s;
+        
         &:hover {
             opacity: .7;
         }

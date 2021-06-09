@@ -11,7 +11,7 @@ import DayTransactions from '../components/Transactions/DayTransactions';
 
 export const Transactions = (props) => {
     useEffect(() => {
-        return () =>  props.closeTransactionDetails();
+        return () => props.closeTransactionDetails();
     });
 
     useEffect(() => {
@@ -43,4 +43,9 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
 })
 
-export default connect(mapStateToProps, {closeTransactionDetails, closeDayTransactions})(Transactions)
+const mapDispatchToProps = {
+    closeTransactionDetails,
+    closeDayTransactions
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Transactions)

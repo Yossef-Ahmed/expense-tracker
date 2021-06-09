@@ -1,76 +1,50 @@
-import React, { Component } from 'react'
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React, {useState} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import {closeEmailVerificationModal} from '../../actions/auth/toggleEmailVerification';
 import {verifyEmail} from '../../actions/auth/verifyEmail';
 import {clearAlert} from '../../actions/auth/alert';
 
 import Modal from '../Reuseable/Modal'
-import Alert from '../Reuseable/Alert';
+import Alert from '../Reuseable/Alert'
+import InputField from '../Reuseable/InputField'
 
-export class EmailVerification extends Component {
-    state = {
-        verificationCode: null
-    }
-    static propTypes = {
-        closeEmailVerificationModal: PropTypes.func.isRequired,
-        verifyEmail: PropTypes.func.isRequired,
-        clearAlert: PropTypes.func.isRequired
-    }
+export const EmailVerification = (props) => {
+    const [verificationCode, setVerificationCode] = useState(null);
 
-    focusOnInput = e => {
-        if (e.target.className === 'input-field__label') {
-            e.target.nextElementSibling.focus();
-        } else if (e.target.className === 'input-field') {
-            e.target.lastElementChild.focus();
-        }
-    }
-
-    onChange = e => {
-        this.setState({[e.target.name]: e.target.value});
-    }
-    
-    onSubmit = e => {
+    const handleSubmition = e => {
         e.preventDefault();
-        
-        const {verificationCode} = this.state;
-        this.props.verifyEmail(this.props.email, verificationCode)
+        props.verifyEmail(props.email, verificationCode)
     }
 
-    closeModal = () => {
-        this.props.closeEmailVerificationModal(null)
-        this.props.clearAlert()
+    const closeModal = () => {
+        props.closeEmailVerificationModal(null)
+        props.clearAlert()
     }
 
-    render() {
-        return (
-            <Modal isOpen={this.props.modal} toggleModal={this.closeModal}>
-                <form className="form" onSubmit={this.onSubmit}>
-                    <h2 className="modal__title form__title">We've Sent You An Email With The Verification Code</h2>
+    return (
+        <Modal isOpen={props.modal} toggleModal={closeModal}>
+            <form className="form" onSubmit={handleSubmition}>
+                <h2 className="modal__title form__title">We've Sent You An Email With The Verification Code</h2>
 
-                    <Alert msg={this.props.alertMsg} type={this.props.alertType} clearAlert={this.props.clearAlert} />
+                <Alert msg={props.alertMsg} type={props.alertType} clearAlert={props.clearAlert} />
 
-                    <div className="input-field" onClick={this.focusOnInput}>
-                        <p className="input-field__label">Verification Code</p>
-                        <input
-                            type="text"
-                            name="verificationCode"
-                            id="verificationCode"
-                            className="input-field__input"
-                            placeholder="198-276-874"
-                            onChange={this.onChange}
-                        />
-                    </div>
+                <InputField label="Verification Code" name="verificationCode" placeholder="198276874" defaultValue={verificationCode} saveValue={setVerificationCode} />
 
-                    <button type="submit" className="btn btn--block btn--green">Verify</button>
-                </form>
-            </Modal>
-        )
-    }
+                <button type="submit" className="btn btn--block btn--green">Verify</button>
+            </form>
+        </Modal>
+    )
 }
 
-const mapStateToProps = state => ({
+EmailVerification.propTypes = {
+    closeEmailVerificationModal: PropTypes.func.isRequired,
+    verifyEmail: PropTypes.func.isRequired,
+    clearAlert: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
     modal: state.auth.isEmailVerificationOpen,
     email: state.auth.emailToVerify,
     sendVerificationCodeNow: state.auth.sendVerificationCodeNow,
@@ -78,4 +52,10 @@ const mapStateToProps = state => ({
     alertType: state.auth.alertType
 })
 
-export default connect(mapStateToProps, {closeEmailVerificationModal, verifyEmail, clearAlert})(EmailVerification)
+const mapDispatchToProps = {
+    closeEmailVerificationModal,
+    verifyEmail,
+    clearAlert
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmailVerification)

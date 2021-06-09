@@ -1,19 +1,22 @@
-// BASE
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 ul, ol {
     list-style: none;
 }
+
 a {
     text-decoration: none;
 }
+
 button {
     border: none;
     outline: none;
 }
+
 body {
     background-color: $whiteColor;
     font-family: roboto,sans-serif;

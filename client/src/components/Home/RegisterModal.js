@@ -1,108 +1,66 @@
-import React, { Component, Fragment } from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import React, { useState, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import {register} from '../../actions/auth/register';
 import {clearAlert} from '../../actions/auth/alert';
 
 import Modal from '../Reuseable/Modal'
 import Alert from '../Reuseable/Alert';
+import InputField from '../Reuseable/InputField';
 
-export class RegisterModal extends Component {
-    state = {
-        modal: false,
-        name: '',
-        email: '',
-        password: ''
-    }
-    static propTypes = {
-        register: PropTypes.func.isRequired,
-        clearAlert: PropTypes.func.isRequired
-    }
+export const RegisterModal = (props) => {
+    const [modal, setModal] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
 
-    toggleModal = () => {
-        this.setState({modal: !this.state.modal});
-        this.props.clearAlert();
+    const toggleModal = () => {
+        setModal((prevValue) => !prevValue);
+        props.clearAlert();
     }
 
-    focusOnInput = e => {
-        if (e.target.className === 'input-field__label') {
-            e.target.nextElementSibling.focus();
-        } else if (e.target.className === 'input-field') {
-            e.target.lastElementChild.focus();
-        }
-    }
-
-    onChange = e => {
-        this.setState({[e.target.name]: e.target.value});
-    }
-
-    onSubmit = e => {
+    const handleRegister = e => {
         e.preventDefault();
-        
-        const {name, email, password} = this.state;
-        this.props.register({name, email, password});
+        props.register({name, email, password});
     }
 
-    render() {
-        return (
-            <Fragment>
-                <button onClick={this.toggleModal} className="btn btn--green btn--small">Sign Up</button>
+    return (
+        <Fragment>
+            <button onClick={toggleModal} className="btn btn--green btn--small">Sign Up</button>
 
-                <Modal isOpen={this.state.modal} toggleModal={this.toggleModal}>
-                    <form className="form" onSubmit={this.onSubmit}>
-                        <h2 className="modal__title form__title">Sign Up</h2>
+            <Modal isOpen={modal} toggleModal={toggleModal}>
+                <form className="form" onSubmit={handleRegister}>
+                    <h2 className="modal__title form__title">Sign Up</h2>
 
-                        <Alert msg={this.props.alertMsg} type={this.props.alertType} clearAlert={this.props.clearAlert} />
-                        
-                        <div className="input-field" onClick={this.focusOnInput}>
-                            <p className="input-field__label">Full Name</p>
-                            <input
-                                type="text"
-                                name="name"
-                                id="name"
-                                className="input-field__input"
-                                placeholder="John Doe"
-                                onChange={this.onChange}
-                            />
-                        </div>
+                    <Alert msg={props.alertMsg} type={props.alertType} clearAlert={props.clearAlert} />
+                    
+                    <InputField label="Full Name" name="name" placeholder="John Doe" defaultValue={name} saveValue={setName} />
 
-                        <div className="input-field" onClick={this.focusOnInput}>
-                            <p className="input-field__label">Email</p>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                className="input-field__input"
-                                placeholder="example@gmail.com"
-                                onChange={this.onChange}
-                            />
-                        </div>
+                    <InputField label="Email" type="email" name="email" placeholder="example@gmail.com" defaultValue={email} saveValue={setEmail} />
 
-                        <div className="input-field" onClick={this.focusOnInput}>
-                            <p className="input-field__label">Password</p>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                className="input-field__input"
-                                placeholder="********"
-                                onChange={this.onChange}
-                            />
-                        </div>
+                    <InputField label="Password" type="password" name="password" placeholder="********" defaultValue={password} saveValue={setPassword} />
 
-                        <button type="submit" className="btn btn--block btn--green">Sign Up</button>
-                    </form>
-                </Modal>
-            </Fragment>
-        )
-    }
+                    <button type="submit" className="btn btn--block btn--green">Sign Up</button>
+                </form>
+            </Modal>
+        </Fragment>
+    )
 }
 
-const mapStateToProps = state => ({
+RegisterModal.propTypes = {
+    register: PropTypes.func.isRequired,
+    clearAlert: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
     alertMsg: state.auth.alertMsg,
     alertType: state.auth.alertType
 })
 
-export default withRouter(connect(mapStateToProps, {register, clearAlert})(RegisterModal));
+const mapDispatchToProps = {
+    register,
+    clearAlert
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterModal)

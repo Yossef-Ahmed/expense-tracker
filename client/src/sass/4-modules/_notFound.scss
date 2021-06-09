@@ -1,18 +1,14 @@
-/* 404 Page */
 .not-found {
     display: flex;
     align-items: center;
     flex-direction: column;
+
     h1 {
         font-size: 135px;
         color: #272727;
     }
+
     h3 {
         color: #90909087;
     }
-}
-
-// Extra small devices (phones, 600px and down)
-@media only screen and (max-width: 600px) {
-    .not-found {justify-content: center;}
 }

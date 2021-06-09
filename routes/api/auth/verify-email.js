@@ -18,7 +18,7 @@ module.exports = (req, res) => {
                     });
                 });
         })
-        .catch(err => {
-            res.json({msg: "Either verification code is not valid or email is already validated"})
+        .catch(() => {
+            res.status(406).json({msg: "Either verification code is not valid or email is already validated"})
         })
 }

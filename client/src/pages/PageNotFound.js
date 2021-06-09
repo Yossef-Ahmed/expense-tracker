@@ -1,36 +1,43 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React, {useEffect} from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
 import {loaded} from '../actions/loaderActions';
 
-export class PageNotFound extends Component {
-    static propTypes = {
-        loaded: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool.isRequired
-    }
+export const PageNotFound = (props) => {
+    const {
+        loaded,
+        isAuthenticated
+    } = props;
+    useEffect(() => {
+        loaded();
+    }, [loaded]);
 
-    componentDidMount() {
-        this.props.loaded();
-    }
-
-    componentDidUpdate() {
-        if (this.props.isAuthenticated) {
-            this.props.loaded();
+    useEffect(() => {
+        if (isAuthenticated) {
+            loaded();
         }
-    }
-    
-    render() {
-        return (
-            <div className="not-found">
-                <h1>404</h1>
-                <h3>Page Not Found</h3>
-            </div>
-        )
-    }
+    }, [isAuthenticated, loaded])
+
+    return (
+        <div className="not-found">
+            <h1>404</h1>
+            <h3>Page Not Found</h3>
+        </div>
+    )
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
-});
+PageNotFound.propTypes = {
+    loaded: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
+}
 
-export default connect(mapStateToProps, {loaded})(PageNotFound);
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+
+const mapDispatchToProps = {
+    loaded
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageNotFound)

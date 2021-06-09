@@ -31,7 +31,7 @@ export const Navbar = (props) => {
     }
 
     const closeMobileMenuAndDropdown = useCallback(() => {
-        document.querySelector('.navbar-menu__content').classList.toggle('active');
+        document.querySelector('.navbar-menu__content').classList.remove('active');
         closeUserLinksList()
     }, [])
 
@@ -66,15 +66,23 @@ export const Navbar = (props) => {
         }
     }
 
-    const prevLocation = usePrevious(location);
+    const prevValues = usePrevious({location, isAuthenticated});
 
     useEffect(() => {
-        if (prevLocation !== undefined) {
-            if (location.pathname !== prevLocation.pathname) {
+        if (prevValues !== undefined) {
+            if (location.pathname !== prevValues.location.pathname) {
                 closeMobileMenuAndDropdown()
             }
         }
-    }, [location.pathname, prevLocation, closeMobileMenuAndDropdown])
+    }, [location.pathname, prevValues, closeMobileMenuAndDropdown])
+
+    useEffect(() => {
+        if (prevValues !== undefined) {
+            if (isAuthenticated !== prevValues.isAuthenticated) {
+                closeMobileMenuAndDropdown()
+            }
+        }
+    }, [prevValues, isAuthenticated, closeMobileMenuAndDropdown])
 
     const authLinks = (
         <Fragment>
