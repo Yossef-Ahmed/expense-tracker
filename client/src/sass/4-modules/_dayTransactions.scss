@@ -1,0 +1,32 @@
+.modal-day-transactions {
+    &__total {
+        margin-top: 8px;
+        color: #707072;
+
+        span {
+            margin-left: 10px;
+        }
+    }
+
+    .modal__header {
+        flex-direction: column;
+    }
+
+    .transactions-list {
+        margin-top: 14px;
+
+        &__header {
+            display: none;
+        }
+
+        &__body {
+            display: block !important;
+        }
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .modal-day-transactions-container {
+        display: none;
+    }
+}

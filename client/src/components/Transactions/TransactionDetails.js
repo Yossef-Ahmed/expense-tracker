@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import {deleteTransaction} from '../../actions/transaction/deleteTransaction';
 import {closeTransactionDetails} from '../../actions/transaction/transactionDetails';
+import {closeDayTransactions} from '../../actions/transaction/dayTransactions';
 import {openConfirm} from '../../actions/confirmActions';
 import {addComma, getDayName, formatDate} from '../../utils/index';
 
@@ -26,6 +27,7 @@ export const TransactionDetails = (props) => {
     const {
         openConfirm,
         closeTransactionDetails,
+        closeDayTransactions,
         deleteTransaction,
         confirm,
         categories,
@@ -48,10 +50,13 @@ export const TransactionDetails = (props) => {
     useEffect(() => {
         if (confirm && item) {
             deleteTransaction(item._id);
-            setTimeout(() => closeTransactionDetails(), 500);
+            setTimeout(() => {
+                closeTransactionDetails()
+                closeDayTransactions();
+            }, 500);
             setModal(false);
         }
-    }, [confirm, deleteTransaction, item, setModal, closeTransactionDetails]);
+    }, [confirm, deleteTransaction, item, setModal, closeTransactionDetails, closeDayTransactions]);
 
     useEffect(() => {
         if (item) {
@@ -67,7 +72,7 @@ export const TransactionDetails = (props) => {
     const transactionDate = new Date(parseInt(transaction.date));
 
     return (
-        <Modal isOpen={modal} toggleModal={toggleModal} modalCustomClass={'modal-details modal--wide'}>
+        <Modal isOpen={modal} toggleModal={toggleModal} modalCustomClass={'modal-details modal--wide'} containerClass="modal-details-container">
             <div className="modal__header modal-details__header">
                 <h2 className="modal__title modal__title--sm">Transaction details</h2>
 
@@ -107,6 +112,7 @@ TransactionDetails.propTypes = {
     item: PropTypes.object,
     deleteTransaction: PropTypes.func.isRequired,
     closeTransactionDetails: PropTypes.func.isRequired,
+    closeDayTransactions: PropTypes.func.isRequired,
     openConfirm: PropTypes.func.isRequired
 }
 
@@ -119,6 +125,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     deleteTransaction,
     closeTransactionDetails,
+    closeDayTransactions,
     openConfirm
 }
 

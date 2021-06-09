@@ -5,14 +5,17 @@ import {
     DELETE_TRANSACTION,
     UPDATE_TRANSACTION,
     CLOSE_TRANSACTION_DETAILS,
-    CHANGE_CURR_MONTH
+    CHANGE_CURR_MONTH,
+    GET_DAY_TRANSACTIONS,
+    CLOSE_DAY_TRANSACTIONS
 } from '../actions/types';
 
 const initialState = {
     items: [],
     item: null,
     start: null,
-    end: null
+    end: null,
+    dayTransactions: {}
 }
 
 export default function(state = initialState, action) {
@@ -69,6 +72,16 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 items: state.items.filter(item => item._id !== action.payload)
+            }
+        case GET_DAY_TRANSACTIONS:
+            return {
+                ...state,
+                dayTransactions: action.payload
+            }
+        case CLOSE_DAY_TRANSACTIONS:
+            return {
+                ...state,
+                dayTransactions: {}
             }
         default:
             return state;

@@ -94,5 +94,9 @@
     .btn {
         font-size: 16px;
         padding: 12px 28px;
+
+        &--modal-details {
+            padding: 12px 10px;
+        }
     }
 }

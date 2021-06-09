@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import {addComma, getDayName, getMonthName} from '../../utils/index';
 import {getTransactionDetails} from '../../actions/transaction/transactionDetails';
+import {getDayTransactions} from '../../actions/transaction/dayTransactions';
 
 export const TransactionsList = (props) => {
     const openTransactionDetails = e => {
@@ -22,9 +23,9 @@ export const TransactionsList = (props) => {
         props.getTransactionDetails(props.transactions.items.find(tran => tran._id === id));
     }
 
-    const openDayTransactions = () => {
-        if (window.matchMedia('screen and (max-width: 600px)').matches) {
-            console.log("Mobile Clicked");
+    const openDayTransactions = transactions => {
+        if (window.matchMedia('screen and (max-width: 500px)').matches) {
+            props.getDayTransactions(transactions);
         }
     }
 
@@ -39,7 +40,7 @@ export const TransactionsList = (props) => {
 
     return (
         <div className="card__list transactions-list">
-            <div className="card__item transactions-list__header" onClick={openDayTransactions}>
+            <div className="card__item transactions-list__header" onClick={() => openDayTransactions(props.transactions)}>
                 <div className="transactions-list__full-date">
                     <div className="transactions-list__full-date__day">{transactionsDate.getDate()}</div>                    
                     <div className="transactions-list__full-date__date">
@@ -85,8 +86,9 @@ export const TransactionsList = (props) => {
 
 TransactionsList.propTypes = {
     getTransactionDetails: PropTypes.func.isRequired,
+    getDayTransactions: PropTypes.func.isRequired,
     transactions: PropTypes.object.isRequired,
     categories: PropTypes.array.isRequired
 }
 
-export default connect(null, {getTransactionDetails})(TransactionsList)
+export default connect(null, {getTransactionDetails, getDayTransactions})(TransactionsList)

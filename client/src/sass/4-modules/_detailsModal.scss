@@ -1,6 +1,10 @@
 .modal-details {
     min-height: unset;
 
+    &-container {
+        z-index: 90;
+    }
+
     &__header {
         justify-content: space-between;
     }
@@ -57,6 +61,22 @@
         &__amount {
             margin-top: 15px;
             margin-left: 69px;
+        }
+    }
+}
+
+@media only screen and (min-width: 501px) and (max-width: 768px) {
+    .modal-details {
+        &__header {
+            padding: 25px 20px;
+        }
+
+        .modal__title {
+            font-size: 28px;
+        }
+
+        .modal__btns .btn:first-of-type {
+            margin-right: 5px;
         }
     }
 }

@@ -3,6 +3,7 @@ import {returnMainAlert} from '../mainAlertActions';
 import {loading, loaded} from '../loaderActions';
 import {setTokenAndConfig} from '../requestConfig';
 import {closeTransactionDetails} from './transactionDetails';
+import {closeDayTransactions} from './dayTransactions';
 import {UPDATE_TRANSACTION} from '../types';
 
 export const updateTransaction = item => (dispatch, getState) => {
@@ -13,6 +14,7 @@ export const updateTransaction = item => (dispatch, getState) => {
     axios
         .patch(`/api/transactions/${item._id}`, body, setTokenAndConfig(getState))
         .then(res => {
+            dispatch(closeDayTransactions());
             dispatch(closeTransactionDetails());
             dispatch(returnMainAlert('success', res.data.msg));
             dispatch({
