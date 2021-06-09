@@ -100,7 +100,7 @@ function CategoriesForm(props) {
                     <h2 className="modal__title">{`${isEdit ? 'Edit' : 'Add'} Category`}</h2>
                 </div>
 
-                <form className="form" onSubmit={e => e.preventDefault()}>
+                <form className="form form--less-padding-mobile" onSubmit={e => e.preventDefault()}>
                     <div className="form-choose-container">
                         <div className="form-choose" onClick={chooseType} data-type="+">
                             <div className={`form-choose__icon ${type === "+" ? "active" : ""}`}>

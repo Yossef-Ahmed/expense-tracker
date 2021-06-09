@@ -123,7 +123,7 @@ const TransactionForm = (props) => {
                     <h2 className="modal__title">{`${isEdit ? 'Edit' : 'Add'} Transaction`}</h2>
                 </div>
 
-                <form className="form form--grid" onSubmit={e => e.preventDefault()}>
+                <form className="form form--grid form--less-padding-mobile" onSubmit={e => e.preventDefault()}>
                     <CategoriesSelect saveValue={(val) => setCategoryId(val)} category={category} />
 
                     <InputField label="Amount" name="amount" customClass="input-field__input--not-flex" defaultValue={amount !== '' ? addComma(amount) : ''} saveValue={(val) => handleAmount(val)}>

@@ -53,7 +53,11 @@ export const TransactionsList = (props) => {
 
             <div className="transactions-list__body not-sm-show">
                 {props.transactions.items.map(transaction => {
-                    const transactionCategroy = props.categories.find(cat => cat._id === transaction.category);
+                    let transactionCategroy = props.categories.find(cat => cat._id === transaction.category);
+                    if (!transactionCategroy) {
+                        transactionCategroy = {type: ""}
+                    }
+
                     const transactionTypeClass = transactionCategroy.type === '-' ? 'expense' : 'income';
                     const transactionAmountFormated = addComma(transaction.amount.toFixed(2));
                     

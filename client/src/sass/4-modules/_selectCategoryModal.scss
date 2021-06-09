@@ -15,3 +15,17 @@
         box-shadow: unset;
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .modal-select-category {
+        .modal__header {
+            padding: 18px 20px 0;
+            display: block;
+        }
+
+        .modal__title {
+            font-size: 28px;
+            text-align: center;
+        }
+    }
+}

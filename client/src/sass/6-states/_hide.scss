@@ -1,0 +1,17 @@
+.sm-show {
+    display: none;
+}
+
+.not-sm-show {
+    display: inherit;
+}
+
+@media only screen and (max-width: 600px) {
+    .sm-show {
+        display: inherit;
+    }
+
+    .not-sm-show {
+        display: none;
+    }
+}

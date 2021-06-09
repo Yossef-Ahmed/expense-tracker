@@ -45,7 +45,7 @@ export const TransactionCard = (props) => {
         return date > new Date() ? true : false
     }
 
-    const {isAuthenticated, getTransactions} = props;
+    const {isAuthenticated, getTransactions, categories, transactions} = props;
 
     useEffect(() => {
         if(isAuthenticated) {
@@ -62,28 +62,32 @@ export const TransactionCard = (props) => {
     let transactionsFilterd = [];
     let incomeTotal = 0;
     let outcomeTotal = 0;
-    
-    props.transactions.forEach(transaction => {
+
+    transactions.forEach(transaction => {
         const transactionDate = new Date(new Date().setTime(transaction.date));
-        const transactionCategroy = props.categories.find(cat => cat._id === transaction.category);
+        const transactionCategroy = categories.find(cat => cat._id === transaction.category);
         
-        if (transactionCategroy.type === '-') {
-            outcomeTotal += transaction.amount;
-        } else {
-            incomeTotal += transaction.amount;
+        if (transactionCategroy) {
+            if (transactionCategroy.type === '-') {
+                outcomeTotal += transaction.amount;
+            } else {
+                incomeTotal += transaction.amount;
+            }
         }
         
-        const matchedTransactions = props.transactions.filter(tran => new Date(new Date().setTime(tran.date)).getDate() === transactionDate.getDate());
+        const matchedTransactions = transactions.filter(tran => new Date(new Date().setTime(tran.date)).getDate() === transactionDate.getDate());
         let newTransactions = [];
         let total = 0;
         
         matchedTransactions.forEach(tran => {
-            const tranCategroy = props.categories.find(cat => cat._id === tran.category);
+            const tranCategroy = categories.find(cat => cat._id === tran.category);
             
-            if (tranCategroy.type === '-') {
-                total -= tran.amount;
-            } else {
-                total += tran.amount;
+            if (tranCategroy) {
+                if (tranCategroy.type === '-') {
+                    total -= tran.amount;
+                } else {
+                    total += tran.amount;
+                }
             }
             
             newTransactions.push(tran);
@@ -118,7 +122,7 @@ export const TransactionCard = (props) => {
                 </div>
             </div>
 
-            {props.transactions.length === 0 ? (
+            {transactions.length === 0 ? (
                 <div className="card__no-results">
                     <i className="far fa-smile card__no-results__icon"></i>
                     <p>No transactions found, please add some.</p>
@@ -151,7 +155,7 @@ export const TransactionCard = (props) => {
                             
                             return (
                                 <Fragment>
-                                    <TransactionsList key={transactions.key} categories={props.categories} transactions={transactions} />
+                                    <TransactionsList key={transactions.key} categories={categories} transactions={transactions} />
                                     {isLast ? null : <div className="card__bar not-sm-show"></div>}
                                 </Fragment>
                             );

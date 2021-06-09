@@ -10,3 +10,17 @@
         padding: 17px 30px 24px;
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .modal-confirm {
+        .modal__header {
+            padding: 18px 20px 20px;
+        }
+
+        .modal__body__msg {
+            padding: 0 20px 35px;
+            line-height: 29px;
+            font-size: 18px;
+        }
+    }
+}

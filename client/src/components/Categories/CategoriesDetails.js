@@ -59,13 +59,15 @@ export const CategoriesDetails = (props) => {
             </div>
 
             <div className="modal__body">
-                <div className={`category-icon category-icon--bigger ${categoryType}`}>
-                    <i className={`fas fa-${catType === '-' ? 'minus' : 'plus'}`}></i>
-                </div>
+                <div className="modal-details__data">
+                    <div className={`category-icon category-icon--bigger ${categoryType}`}>
+                        <i className={`fas fa-${catType === '-' ? 'minus' : 'plus'}`}></i>
+                    </div>
 
-                <div className="modal-details__info">
-                    <h3 className="category-name">{catName}</h3>
-                    <span className={`modal-details__cat-type ${categoryType}`}>{categoryType}</span>
+                    <div className="modal-details__info">
+                        <h3 className="category-name">{catName}</h3>
+                        <span className={`modal-details__cat-type ${categoryType}`}>{categoryType}</span>
+                    </div>
                 </div>
             </div>
 
@@ -81,7 +83,7 @@ CategoriesDetails.propTypes = {
     deleteCategory: PropTypes.func.isRequired,
     closeCategoryDetails: PropTypes.func.isRequired,
     openConfirm: PropTypes.func.isRequired,
-    item: PropTypes.object.isRequired,
+    item: PropTypes.object,
     confirm: PropTypes.bool.isRequired
 }
 

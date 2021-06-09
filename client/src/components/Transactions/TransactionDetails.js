@@ -78,19 +78,19 @@ export const TransactionDetails = (props) => {
             </div>
 
             <div className="modal__body">
-                <div className={`category-icon category-icon--bigger ${categoryType}`}>
-                    <i className={`fas fa-${category.type === '-' ? 'minus' : 'plus'}`}></i>
-                </div>
-
                 <div className="modal-details__data">
+                    <div className={`category-icon category-icon--bigger ${categoryType}`}>
+                        <i className={`fas fa-${category.type === '-' ? 'minus' : 'plus'}`}></i>
+                    </div>
+
                     <div className="modal-details__info">
                         <h3 className="category-name">{category.name}</h3>
                         <div className="modal-details__date">{`${getDayName(transactionDate.getDay())}, ${formatDate(transactionDate)}`}</div>
                         <p className="modal-details__note">{transaction.note}</p>
                     </div>
-
-                    <div className={`modal-details__amount ${categoryType}`}>{`${category.type}$ ${addComma(parseInt(transaction.amount).toFixed(2))}`}</div>
                 </div>
+
+                <div className={`modal-details__amount ${categoryType}`}>{`${category.type}$ ${addComma(parseInt(transaction.amount).toFixed(2))}`}</div>
             </div>
 
             <div className="modal__btns sm-show">

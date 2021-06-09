@@ -1,7 +1,7 @@
 .modal-details {
     min-height: unset;
 
-    .modal-details__header {
+    &__header {
         justify-content: space-between;
     }
 
@@ -9,6 +9,7 @@
         padding: 30px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
         .category-icon {
             margin-right: 30px;
@@ -23,8 +24,6 @@
     &__data {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        flex: 1;
     }
 
     &__date {
@@ -39,5 +38,25 @@
 
     &__amount {
         font-size: 26px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .modal-details {
+        &__header {
+            justify-content: center;
+            padding: 18px 20px 6px;
+        }
+
+        .modal__body {
+            padding: 30px 20px;
+            flex-direction: column;
+            align-items: unset;
+        }
+
+        &__amount {
+            margin-top: 15px;
+            margin-left: 69px;
+        }
     }
 }
