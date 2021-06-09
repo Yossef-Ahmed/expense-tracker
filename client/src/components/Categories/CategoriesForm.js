@@ -55,6 +55,8 @@ function CategoriesForm(props) {
             
             toggleAddModal();
         }
+
+        setTimeout(() => props.closeMenu(), 400)
     }
 
     useEffect(() => {
@@ -138,7 +140,8 @@ CategoriesForm.propTypes = {
     formMode: PropTypes.string,
     item: PropTypes.object,
     createCategory: PropTypes.func.isRequired,
-    updateCategory: PropTypes.func.isRequired
+    updateCategory: PropTypes.func.isRequired,
+    closeMenu: PropTypes.func
 }
 
 const mapStateToProps = state => ({

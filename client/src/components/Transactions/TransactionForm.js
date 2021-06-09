@@ -99,6 +99,8 @@ const TransactionForm = (props) => {
             });
             toggleAddModal();
         }
+
+        setTimeout(() => props.closeMenu(), 400)
     }
 
     const category = isEdit ? props.categories.find(cat => cat._id === categoryId) : null;
@@ -152,6 +154,7 @@ const TransactionForm = (props) => {
 TransactionForm.propTypes = {
     createTransaction: PropTypes.func.isRequired,
     updateTransaction: PropTypes.func.isRequired,
+    closeMenu: PropTypes.func,
     item: PropTypes.object,
     categories: PropTypes.array,
     formMode: PropTypes.string
