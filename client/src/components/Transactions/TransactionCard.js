@@ -154,7 +154,7 @@ export const TransactionCard = (props) => {
                             const isLast = transactionsFilterd.lastIndexOf(transactions) === transactionsFilterd.length - 1 ? true : false;
                             
                             return (
-                                <Fragment>
+                                <Fragment key={transactions.key}>
                                     <TransactionsList key={transactions.key} categories={categories} transactions={transactions} />
                                     {isLast ? null : <div className="card__bar not-sm-show"></div>}
                                 </Fragment>
