@@ -90,6 +90,31 @@ npm install
 npm run server / yarn run server
 ```
 
+## Directory Strcuture
+
+    .
+    ├── client                      # Frontend files (react js)
+    │   ├── src                     # Frontend source code
+    │   │   ├── actions             # Redux Actions
+    │   │   ├── components          # React Components
+    │   │   ├── images              # All the images
+    │   │   ├── pages               # React Pages
+    │   │   ├── reducers            # Auth routes
+    │   │   ├── sass                # Redux Reducers
+    │   └── └── utils               # Utilities 
+    ├── middlewares                 # Middleware files
+    ├── models                      # MongoDB Models
+    ├── routes                      # The backend routes
+    │   ├── api  
+    │   │   ├── auth                # Auth routes
+    │   │   ├── transactions        # Transactions routes
+    │   │   ├── user                # User routes
+    │   └── └──   └── categories    # Categories routes
+    ├── utils                       # Utilities
+    ├── LICENSE
+    ├── README.md
+    └── server.js
+
 ## Meta
 
 Made By Youssef Ahmed – uosefd@gmail.com
